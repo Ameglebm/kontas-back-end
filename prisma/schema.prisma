@@ -1,0 +1,134 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  // url      = env("DATABASE_URL")
+}
+
+// Enuns
+enum Role {
+  ADMIN
+  USER
+}
+
+enum StatusConvite {
+  PENDENTE
+  ACEITO
+  RECUSADO
+}
+
+// Models
+model Usuario {
+  id         String  @id @default(uuid())
+  email      String  @unique
+  nome       String?
+  fotoPerfil String?
+  verificado Boolean @default(false)
+
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  republicas         Morador[]
+  convites           Convite[]
+  codigoVerificacaos CodigoVerificacao[]
+
+  @@map("usuarios")
+}
+
+model Republica {
+  id              String  @id @default(uuid())
+  nome            String
+  imagemRepublica String?
+
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  moradores Morador[]
+  convites  Convite[]
+  contas    Conta[]
+
+  @@map("republicas")
+}
+
+model CodigoVerificacao {
+  id        String @id @default(uuid())
+  usuarioId String
+
+  codigo String
+
+  expiraEm DateTime
+  usado    Boolean  @default(false)
+  criadoEm DateTime @default(now())
+
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+
+  @@map("codigos_verificacao")
+}
+
+model Morador {
+  id          String @id @default(uuid())
+  moradorId   String
+  republicaId String
+
+  role Role
+
+  nome     String
+  telefone String?
+  chavePix String?
+
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  contasCriadas Conta[] @relation("ContaCriadaPor")
+  contas Conta[] @relation("ContaMoradores")
+
+  usuario   Usuario   @relation(fields: [moradorId], references: [id])
+  republica Republica @relation(fields: [republicaId], references: [id])
+
+  @@unique([moradorId, republicaId])
+  @@map("moradores")
+}
+
+model Convite {
+  id     String        @id @default(uuid())
+  email  String
+  status StatusConvite @default(PENDENTE)
+
+  republicaId String
+  republica   Republica @relation(fields: [republicaId], references: [id])
+
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  usuario      Usuario? @relation(fields: [usuarioId], references: [id])
+  usuarioId    String?
+
+  @@map("convites")
+}
+
+model Conta {
+  id        String @id @default(uuid())
+  descricao String
+  valor     Float //colocar em Number
+
+  vencimento DateTime
+  pago       Boolean   @default(false)
+  pagoEm     DateTime?
+
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  metodoPagamento String?
+
+  republica       Republica @relation(fields: [republicaId], references: [id])
+  republicaId     String
+
+  criadoPorId String
+  criadoPor Morador @relation("ContaCriadaPor", fields: [criadoPorId], references: [id])
+
+  moradores Morador[] @relation("ContaMoradores")
+
+  @@map("contas")
+}
