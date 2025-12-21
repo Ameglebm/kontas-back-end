@@ -57,7 +57,7 @@ export class AuthController {
    * COMPLETAR DADOS OBRIGATÓRIOS APÓS LOGIN
    */
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Completar dados da república após login' })
+  @ApiOperation({ summary: 'Completar dados após login' })
   @ApiResponse({
     status: 200,
     description: 'Dados completados com sucesso',

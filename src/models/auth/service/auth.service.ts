@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { prisma } from '../../../lib/prisma';
 import { OAuth2Client } from 'google-auth-library';
-import { AuthResponseDto, UserResponseDto } from '../dtos/authResponseDto';
+import { AuthResponseDto, UserResponseDto } from '../dtos/auth-response.dto';
 import { CompletarDadosRepublicaDto } from '../dtos/authDto';
 
 @Injectable()
@@ -39,7 +39,6 @@ export class AuthService {
           nome: payload.name || 'Sem nome',
           fotoPerfil: payload.picture,
           verificado: true,
-          role: 'MORADOR', // default
         },
       });
     }
@@ -48,7 +47,6 @@ export class AuthService {
     const token = this.jwtService.sign({
       userId: usuario.id,
       email: usuario.email,
-      role: usuario.role,
     });
 
     return {
@@ -65,7 +63,6 @@ export class AuthService {
       where: { id: user.userId },
       data: {
         nome: dto.nome,
-        telefone: dto.telefone,
         chavePix: dto.chavePix,
         fotoPerfil: dto.fotoPerfil || user.fotoPerfil,
       },
