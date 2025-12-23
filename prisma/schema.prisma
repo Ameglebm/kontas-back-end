@@ -26,7 +26,11 @@ model Usuario {
   email      String  @unique
   nome       String?
   fotoPerfil String?
-  perfil Boolean @default(false)
+
+  chavePix String?
+  telefone String?
+
+  perfilCompleto Boolean @default(false)
 
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
@@ -74,10 +78,6 @@ model Morador {
   republicaId String
 
   role Role
-
-  nome     String
-  telefone String?
-  chavePix String?
 
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt

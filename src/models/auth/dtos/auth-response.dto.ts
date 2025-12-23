@@ -13,8 +13,8 @@ export class UserResponseDto {
   @ApiProperty({ example: 'link-da-foto.jpg', required: false })
   fotoPerfil?: string;
 
-  @ApiProperty({ example: ''})
-  verificado!: boolean;
+  @ApiProperty({ example: 'Indica se o perfil foi completamente preenchido' })
+  perfilCompleto!: boolean;
 }
 
 export class AuthResponseDto {

@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
+import { prisma } from 'src/lib/prisma';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -15,8 +16,22 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             secretOrKey: secret,
         });
     }
-    async validate(payload: any) {
-        return payload;
-        // já contém userId, role, moradorId, republicaId
+    async validate(payload: { userId: string }) {
+        const usuario = await prisma.usuario.findUnique({
+            where: { id: payload.userId },
+            select: {
+                id: true,
+                email: true,
+                nome: true,
+                fotoPerfil: true,
+                perfilCompleto: true,
+            },
+        });
+
+        if (!usuario) {
+            throw new UnauthorizedException('Usuário não encontrado');
+        }
+
+        return usuario;
     }
 }

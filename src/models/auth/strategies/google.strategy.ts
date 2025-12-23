@@ -32,7 +32,7 @@ export class GoogleStrategy {
           email: payload.email,
           nome: payload.name,
           fotoPerfil: payload.picture,
-          verificado: true,
+          perfilCompleto: false,
         },
       });
     }
