@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { OAuth2Client } from 'google-auth-library';
 import { prisma } from '../../../lib/prisma';
 import { AuthResponseDto, UserResponseDto } from '../dtos/auth-response.dto';
-import { CompletarDadosRepublicaDto } from '../dtos/authDto';
+import { CompletarDadosRepublicaDto, AtualizarPerfilDto } from '../dtos/authDto';
 
 //Payload usado no JWT
 interface JwtPayload {
@@ -117,6 +117,23 @@ export class AuthService {
       chavePix: usuario.chavePix ?? undefined,
       telefone: usuario.telefone ?? undefined,
     };
+  }
+
+  async atualizarPerfil(
+    userId: string,
+    dto: AtualizarPerfilDto,
+  ): Promise<UserResponseDto> {
+    const usuario = await prisma.usuario.update({
+      where: { id: userId },
+      data: {
+        ...(dto.nome !== undefined && { nome: dto.nome }),
+        ...(dto.telefone !== undefined && { telefone: dto.telefone }),
+        ...(dto.chavePix !== undefined && { chavePix: dto.chavePix }),
+        ...(dto.fotoPerfil !== undefined && { fotoPerfil: dto.fotoPerfil }),
+      },
+    });
+
+    return this.mapToUserResponse(usuario);
   }
 }
 

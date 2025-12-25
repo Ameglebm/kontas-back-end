@@ -53,4 +53,22 @@ export class AuthRepository implements IAuthRepository {
       },
     });
   }
+  async atualizarPerfil(
+    userId: string,
+    data: {
+      nome?: string;
+      telefone?: string;
+      chavePix?: string;
+      fotoPerfil?: string;
+    }): Promise<Usuario> {
+    return prisma.usuario.update({
+      where: { id: userId },
+      data: {
+        ...(data.nome !== undefined && { nome: data.nome }),
+        ...(data.telefone !== undefined && { telefone: data.telefone }),
+        ...(data.chavePix !== undefined && { chavePix: data.chavePix }),
+        ...(data.fotoPerfil !== undefined && { fotoPerfil: data.fotoPerfil }),
+      },
+    });
+  }
 }
