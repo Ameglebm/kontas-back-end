@@ -10,7 +10,9 @@ CREATE TABLE "usuarios" (
     "email" TEXT NOT NULL,
     "nome" TEXT,
     "fotoPerfil" TEXT,
-    "verificado" BOOLEAN NOT NULL DEFAULT false,
+    "chavePix" TEXT,
+    "telefone" TEXT,
+    "perfilCompleto" BOOLEAN NOT NULL DEFAULT false,
     "criadoEm" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "atualizadoEm" TIMESTAMP(3) NOT NULL,
 
@@ -46,9 +48,6 @@ CREATE TABLE "moradores" (
     "moradorId" TEXT NOT NULL,
     "republicaId" TEXT NOT NULL,
     "role" "Role" NOT NULL,
-    "nome" TEXT NOT NULL,
-    "telefone" TEXT,
-    "chavePix" TEXT,
     "criadoEm" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "atualizadoEm" TIMESTAMP(3) NOT NULL,
 

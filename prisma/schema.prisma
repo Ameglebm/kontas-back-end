@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -26,7 +25,11 @@ model Usuario {
   email      String  @unique
   nome       String?
   fotoPerfil String?
-  perfil Boolean @default(false)
+
+  chavePix String?
+  telefone String?
+
+  perfilCompleto Boolean @default(false)
 
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
@@ -75,15 +78,11 @@ model Morador {
 
   role Role
 
-  nome     String
-  telefone String?
-  chavePix String?
-
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
 
   contasCriadas Conta[] @relation("ContaCriadaPor")
-  contas Conta[] @relation("ContaMoradores")
+  contas        Conta[] @relation("ContaMoradores")
 
   usuario   Usuario   @relation(fields: [moradorId], references: [id])
   republica Republica @relation(fields: [republicaId], references: [id])
@@ -122,11 +121,11 @@ model Conta {
 
   metodoPagamento String?
 
-  republica       Republica @relation(fields: [republicaId], references: [id])
-  republicaId     String
+  republica   Republica @relation(fields: [republicaId], references: [id])
+  republicaId String
 
   criadoPorId String
-  criadoPor Morador @relation("ContaCriadaPor", fields: [criadoPorId], references: [id])
+  criadoPor   Morador @relation("ContaCriadaPor", fields: [criadoPorId], references: [id])
 
   moradores Morador[] @relation("ContaMoradores")
 

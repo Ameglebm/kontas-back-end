@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsOptional, IsUrl } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsUrl, IsBoolean } from 'class-validator';
 
 export class GoogleAuthDto {
     @ApiProperty({ example: 'ya29.a0AfH6SMC...' })
-    @IsString({message: 'Token deve ser uma string'})
-    @IsNotEmpty({message: 'Token não pode estar vazio'})
+    @IsString({ message: 'Token deve ser uma string' })
+    @IsNotEmpty({ message: 'Token não pode estar vazio' })
     token!: string;
 }
 
@@ -14,19 +14,19 @@ export class CompletarDadosRepublicaDto {
     @IsNotEmpty({ message: 'Nome não pode estar vazio' })
     nome!: string
 
-    @ApiProperty({ example: 'Telefone'})
+    @ApiProperty({ example: 'Telefone' })
     @IsString({ message: 'Telefone deve ser uma string' })
     @IsNotEmpty({ message: 'Telefone não pode estar vazio' })
     telefone!: string
 
     @ApiProperty({ example: '123.554.789-00' })
-    @IsString({ message: 'Chave pix deve ser uma string'})
+    @IsString({ message: 'Chave pix deve ser uma string' })
     @IsNotEmpty({ message: 'Chave pix não pode estar vazia' })
     chavePix!: string
 
     @ApiProperty({ example: 'caminho/foto.jpg', required: false })
     @IsOptional({ message: 'Foto é opcional' })
-    @IsString({ message: 'Foto deve ser uma string'})
+    @IsString({ message: 'Foto deve ser uma string' })
     @IsUrl({}, { message: 'Foto deve ser uma URL válida' })
     fotoPerfil?: string;
 }

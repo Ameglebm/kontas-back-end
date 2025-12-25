@@ -9,9 +9,10 @@ interface AuthenticatedUser {
   id: string;
   nome: string;
   email: string;
-  telefone?: string;
-  chavePix?: string;
   fotoPerfil?: string;
+  perfilCompleto: boolean;
+  chavePix?: string;
+  telefone?: string;
 }
 
 interface AuthenticatedRequest extends Request {
@@ -21,12 +22,9 @@ interface AuthenticatedRequest extends Request {
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
-
-  /**
-   * LOGIN COM GOOGLE (MOBILE)
-   * Recebe idToken do Google e retorna JWT da aplicação
-   */
+  constructor(private readonly authService: AuthService) { }
+  // LOGIN COM GOOGLE (MOBILE)
+  // Recebe idToken do Google e retorna JWT da aplicação
   @ApiOperation({ summary: 'Login com Google (Mobile)' })
   @ApiResponse({
     status: 200,
@@ -52,10 +50,7 @@ export class AuthController {
   async googleAuth(@Body() dto: GoogleAuthDto) {
     return this.authService.googleLogin(dto.token);
   }
-
-  /**
-   * COMPLETAR DADOS OBRIGATÓRIOS APÓS LOGIN
-   */
+  //COMPLETAR DADOS OBRIGATÓRIOS APÓS LOGIN
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Completar dados após login' })
   @ApiResponse({
@@ -83,12 +78,9 @@ export class AuthController {
     @Req() req: AuthenticatedRequest,
     @Body() dto: CompletarDadosRepublicaDto,
   ) {
-    return this.authService.completarDados(req.user, dto);
+    return this.authService.completarDados(req.user.id, dto);
   }
-
-  /**
-   * RETORNA USUÁRIO AUTENTICADO (JWT)
-   */
+  //RETORNA USUÁRIO AUTENTICADO (JWT)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Retorna o usuário autenticado' })
   @ApiResponse({
@@ -101,6 +93,9 @@ export class AuthController {
           nome: 'João da Silva',
           email: 'joao@email.com',
           fotoPerfil: 'link-da-foto.jpg',
+          perfilCompleto: true,
+          chavePix: 'chave-pix@email.com',
+          telefone: '(24) 99999-9999',
         },
       },
     },
@@ -110,6 +105,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('me')
   async me(@Req() req: AuthenticatedRequest) {
-    return req.user;
+    return this.authService.getUser(req.user.id)
   }
 }
