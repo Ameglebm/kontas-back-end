@@ -108,4 +108,3 @@ export class AuthController {
     return this.authService.getUser(req.user.id)
   }
 }
-
