@@ -17,6 +17,8 @@ interface AuthenticatedUser {
   nome: string | null;
   fotoPerfil: string | null;
   perfilCompleto: boolean;
+  chavePix?: string | null;
+  telefone?: string | null;
 }
 
 @Injectable()
