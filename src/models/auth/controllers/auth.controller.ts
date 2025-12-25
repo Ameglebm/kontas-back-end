@@ -11,6 +11,8 @@ interface AuthenticatedUser {
   email: string;
   fotoPerfil?: string;
   perfilCompleto: boolean;
+  chavePix?: string;
+  telefone?: string;
 }
 
 interface AuthenticatedRequest extends Request {
@@ -91,6 +93,9 @@ export class AuthController {
           nome: 'João da Silva',
           email: 'joao@email.com',
           fotoPerfil: 'link-da-foto.jpg',
+          perfilCompleto: true,
+          chavePix: 'chave-pix@email.com',
+          telefone: '(24) 99999-9999',
         },
       },
     },
