@@ -105,8 +105,8 @@ export class AuthService {
     nome: string | null;
     fotoPerfil: string | null;
     perfilCompleto: boolean;
-    chavePix: string | null;
-    telefone: string | null;
+    chavePix?: string | null;
+    telefone?: string | null;
   }): UserResponseDto {
     return {
       id: usuario.id,
