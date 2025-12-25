@@ -2,7 +2,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-datasource db { 
+datasource db {
   provider = "postgresql"
   // url      = env("DATABASE_URL")
 }
@@ -82,7 +82,7 @@ model Morador {
   atualizadoEm DateTime @updatedAt
 
   contasCriadas Conta[] @relation("ContaCriadaPor")
-  contas Conta[] @relation("ContaMoradores")
+  contas        Conta[] @relation("ContaMoradores")
 
   usuario   Usuario   @relation(fields: [moradorId], references: [id])
   republica Republica @relation(fields: [republicaId], references: [id])
@@ -121,11 +121,11 @@ model Conta {
 
   metodoPagamento String?
 
-  republica       Republica @relation(fields: [republicaId], references: [id])
-  republicaId     String
+  republica   Republica @relation(fields: [republicaId], references: [id])
+  republicaId String
 
   criadoPorId String
-  criadoPor Morador @relation("ContaCriadaPor", fields: [criadoPorId], references: [id])
+  criadoPor   Morador @relation("ContaCriadaPor", fields: [criadoPorId], references: [id])
 
   moradores Morador[] @relation("ContaMoradores")
 
