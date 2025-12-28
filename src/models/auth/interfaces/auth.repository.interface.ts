@@ -17,4 +17,13 @@ export interface IAuthRepository {
       fotoPerfil?: string;
     }
   ): Promise<Usuario>;
+  atualizarPerfil(
+    userId: string,
+    data: {
+      nome?: string;
+      telefone?: string;
+      chavePix?: string;
+      fotoPerfil?: string;
+    }
+  ): Promise<Usuario>;
 }
