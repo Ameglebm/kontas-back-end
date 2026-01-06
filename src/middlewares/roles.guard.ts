@@ -5,7 +5,7 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Role } from '../models/auth/enums/role.enum';
+import { Role } from '../enums/role.enum';
 
 interface JwtPayload {
   userId: string;
