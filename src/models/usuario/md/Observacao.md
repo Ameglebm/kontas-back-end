@@ -1,101 +1,92 @@
-1️⃣ usuario.repository.interface.ts
+# 🧩 Arquitetura — Usuário (Visão Clara)
 
-➡️ Contrato de acesso a dados (Prisma / Banco)
-Responsável por buscar, criar, atualizar usuário no banco.
+## 1️⃣ `usuario.repository.interface.ts`
 
-Exemplo do papel dele:
+➡️ **Contrato de acesso a dados (Banco / Prisma)**  
+Responsável **exclusivamente** por buscar, criar e atualizar dados do usuário no banco.
 
-buscar usuário por id
+### Papel do Repository
+- Buscar usuário por **id**
+- Buscar usuário por **email**
+- Criar usuário
+- Atualizar usuário
 
-buscar por email
+📌 **Só fala de banco**  
+📌 **Não contém regra de negócio**
 
-criar usuário
+---
 
-atualizar usuário
+## 2️⃣ `usuario.service.interface.ts`
 
-📌 Só fala de banco
+➡️ **Contrato da regra de negócio**  
+Define **o que o sistema pode fazer** com o usuário, não **como** os dados são salvos.
 
-2️⃣ usuario.service.interface.ts
+### Papel do Service
+- Obter perfil do usuário
+- Atualizar perfil
+- Entrar em república
+- Sair da república
 
-➡️ Contrato da regra de negócio
-Define o que o sistema pode fazer com usuário, não como.
+📌 **Não sabe nada de Prisma**  
+📌 **Só regra de negócio**
 
-Exemplo do papel dele:
+---
 
-obter perfil do usuário
-
-atualizar perfil
-
-entrar em república
-
-sair da república
-
-📌 Não sabe nada de Prisma
-📌 Só regra de negócio
-
-🧠 Forma simples de entender
+## 🧠 Forma simples de entender
 
 Pensa assim:
 
-Controller 👉 fala com o mundo (HTTP)
 
-Service 👉 pensa e decide
+---
 
-Repository 👉 mexe no banco
+## 🔍 Diferença rápida (tabela mental)
 
-🔍 Diferença rápida (tabela mental)
-Arquivo Serve => pra quê
-repository.interface => Contrato com o banco
-repository Prisma
-service.interface => Contrato da regra
-service => Regra de negócio
-controller => HTTP
+| Arquivo / Camada            | Serve para quê |
+|-----------------------------|----------------|
+| `repository.interface.ts`   | Contrato com o banco |
+| `repository (Prisma)`       | Implementação do acesso ao banco |
+| `service.interface.ts`      | Contrato da regra de negócio |
+| `service.ts`                | Regra de negócio |
+| `controller.ts`             | HTTP (req / res) |
 
-🟢 Regra prática (pra não se perder)
+---
 
-Tudo que é find/create/update no banco → Repository
+## 🟢 Regra prática (pra não se perder)
 
-Tudo que é decisão, validação, fluxo → Service
+- Tudo que é **find / create / update no banco** → **Repository**
+- Tudo que é **decisão, validação, fluxo** → **Service**
+- Tudo que é **req / res (HTTP)** → **Controller**
+- Tudo que é **formato de entrada e saída** → **DTO**
 
-Tudo que é req/res → Controller
+---
 
-Tudo que é formato de entrada/saída → DTO
+## 🧠 Regra de ouro — tipos de dados
 
-🧠 Regra de ouro (bem simples)
+- **DTO** → vem de fora  
+  (request / controller)
 
-DTO → vem de fora (request / controller)
+- **Type** → usado dentro do sistema  
+  (modelo de domínio)
 
-Type → usado dentro do sistema
+- **ResponseDto** → sai para fora  
+  (response da API)
 
-ResponseDto → sai para fora (response)
+---
 
-🧠 Regra de ouro (bem simples)
+## ✔ Arquitetura — Separação clara de responsabilidades
 
-DTO → vem de fora (request / controller)
+- `controller` → entrada HTTP
+- `service` → regra de negócio
+- `repository` → acesso a dados
+- `types` → modelo de domínio
+- `dtos` → contrato de entrada e saída
 
-Type → usado dentro do sistema
+---
 
-ResponseDto → sai para fora (response)
+## 🔐 Boas práticas aplicadas
 
-✔ Arquitetura
-
-Separação clara:
-
-controller → entrada HTTP
-
-service → regra de negócio
-
-repository → acesso a dados
-
-types → modelo de domínio
-
-dtos → contrato de entrada/saída
-
-Uso correto de token (USUARIO_REPOSITORY)
-
-@Inject(USUARIO_REPOSITORY) aplicado corretamente
-
-Service depende de interface, não de Prisma
-
-Repository isolado com Prisma
-
+- Uso correto de **token de injeção** (`USUARIO_REPOSITORY`)
+- `@Inject(USUARIO_REPOSITORY)` aplicado corretamente
+- **Service depende de interface**, não de Prisma
+- **Repository isolado** com Prisma
+- Código desacoplado, testável e escalável
