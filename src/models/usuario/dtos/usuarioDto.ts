@@ -32,6 +32,11 @@ export class AtualizarUsuarioDto {
     fotoPerfil?: string;
 }
 /**
+ * 🔹 Criar Republica
+ */
+export class CriarRepublicaDto {
+}
+/**
  * 🔹 Entrar em uma república (via código ou convite)
  */
 export class EntrarRepublicaDto {
