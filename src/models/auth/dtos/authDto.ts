@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsOptional, IsUrl, IsBoolean } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class GoogleAuthDto {
     @ApiProperty({ example: 'ya29.a0AfH6SMC...' })
@@ -27,7 +27,6 @@ export class CompletarDadosRepublicaDto {
     @ApiProperty({ example: 'caminho/foto.jpg', required: false })
     @IsOptional({ message: 'Foto é opcional' })
     @IsString({ message: 'Foto deve ser uma string' })
-    @IsUrl({}, { message: 'Foto deve ser uma URL válida' })
     fotoPerfil?: string;
 }
 
