@@ -13,7 +13,6 @@ import {
     ApiResponse,
 } from '@nestjs/swagger';
 import type { Request } from 'express';
-
 import { UsuarioService } from '../service/usuario.service';
 import { AtualizarUsuarioDto } from '../dtos/usuarioDto';
 import { AuthGuard } from '../../../middlewares/auth.guard';

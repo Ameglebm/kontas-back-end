@@ -85,19 +85,6 @@ export class AuthService {
 
     return this.mapToUserResponse(usuario);
   }
-  // USUÁRIO AUTENTICADO (ME)
-  async getUser(userId: string): Promise<UserResponseDto> {
-    const usuario = await prisma.usuario.findUnique({
-      where: { id: userId },
-    });
-
-    if (!usuario) {
-      throw new UnauthorizedException('Usuário não encontrado');
-    }
-
-    return this.mapToUserResponse(usuario);
-  }
-
   // MAPEAMENTO PADRÃO DE USUÁRIO
   private mapToUserResponse(usuario: {
     id: string;
