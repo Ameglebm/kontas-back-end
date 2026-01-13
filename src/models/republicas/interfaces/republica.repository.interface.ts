@@ -1,16 +1,17 @@
-import { Republica } from '../types/republica.type';
+import { Republica } from '@prisma/client';
 
 export interface IRepublicaRepository {
-    criar(data: {
+    criarRepublica(data: {
         nome: string;
         imagemRepublica?: string;
     }): Promise<Republica>;
-    bucarPorId(id: string): Promise<Republica> | null;
-    atualizar(
+    buscarPorId(id: string): Promise<Republica | null>;
+    listarPorUsuario(usuarioId: string): Promise<Republica[]>;
+    atualizarRepublica(
         id: string,
         data: {
             nome?: string;
-            imagemRepublica?: string
+            imagemRepublica?: string;
         }
     ): Promise<Republica>;
     deletar(id: string): Promise<void>;
