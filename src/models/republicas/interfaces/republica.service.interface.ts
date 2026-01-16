@@ -1,5 +1,4 @@
 import { Republica } from '@prisma/client'
-import { Role } from 'src/enums/role.enum';
 
 export interface IRepublicaService {
     /**

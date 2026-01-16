@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { prisma } from '../../../lib/prisma';
 import { Republica } from '@prisma/client';
 import { IRepublicaRepository, } from '../interfaces/republica.repository.interface';
+import { prisma } from 'src/lib/prisma';
 
 @Injectable()
 export class RepublicaRepository implements IRepublicaRepository {
 
     async criarRepublica(data: {
+        usuarioId?: string;
         nome: string;
         imagemRepublica?: string;
     }): Promise<Republica> {
