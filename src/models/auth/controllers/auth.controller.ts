@@ -1,7 +1,7 @@
-import { Controller, Post, Get, Body, Req, UseGuards, Patch } from '@nestjs/common';
+import { Controller, Post, Body, Req, UseGuards, Patch } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import type { Request } from 'express';
-import { GoogleAuthDto, CompletarDadosRepublicaDto, AtualizarPerfilDto } from '../dtos/authDto';
+import { GoogleAuthDto, CompletarDadosRepublicaDto } from '../dtos/authDto';
 import { AuthService } from '../service/auth.service';
 import { AuthGuard } from '../../../middlewares/auth.guard';
 
@@ -80,61 +80,4 @@ export class AuthController {
   ) {
     return this.authService.completarDados(req.user.id, dto);
   }
-  //RETORNA USUÁRIO AUTENTICADO (JWT)
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Retorna o usuário autenticado' })
-  @ApiResponse({
-    status: 200,
-    description: 'Usuário autenticado retornado com sucesso',
-    content: {
-      'application/json': {
-        example: {
-          id: 'uuid-usuario',
-          nome: 'João da Silva',
-          email: 'joao@email.com',
-          fotoPerfil: 'link-da-foto.jpg',
-          perfilCompleto: true,
-          chavePix: 'chave-pix@email.com',
-          telefone: '(24) 99999-9999',
-        },
-      },
-    },
-  })
-  @ApiResponse({ status: 401, description: 'Não autenticado' })
-  @ApiResponse({ status: 500, description: 'Erro interno do servidor' })
-  @UseGuards(AuthGuard)
-  @Get('me')
-  async me(@Req() req: AuthenticatedRequest) {
-    return this.authService.getUser(req.user.id)
-  }
-  // Atualiza Usuario autenticado
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Atualizar dados do perfil do usuário' })
-  @ApiResponse({
-    status: 200,
-    description: 'Perfil atualizado com sucesso',
-    content: {
-      'application/json': {
-        example: {
-          id: 'uuid-usuario',
-          nome: 'João da Silva',
-          email: 'joao@email.com',
-          telefone: '(24) 99999-9999',
-          chavePix: 'chave-pix@email.com'
-        }
-      }
-    }
-  })
-  @ApiResponse({ status: 400, description: 'Requisição inválida' })
-  @ApiResponse({ status: 401, description: 'Não autenticado' })
-  @ApiResponse({ status: 500, description: 'Erro interno do servidor' })
-  @UseGuards(AuthGuard)
-  @Patch('atualizar-dados-perfil')
-  async atualizarPerfil(
-    @Req() req: AuthenticatedRequest,
-    @Body() dto: AtualizarPerfilDto,
-  ) {
-    return this.authService.atualizarPerfil(req.user.id, dto);
-  }
-
 }

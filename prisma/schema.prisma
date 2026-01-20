@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
 }
 
 datasource db {
@@ -60,13 +60,12 @@ model CodigoVerificacao {
   id        String @id @default(uuid())
   usuarioId String
 
-  codigo String
-
+  codigo   String
   expiraEm DateTime
   usado    Boolean  @default(false)
   criadoEm DateTime @default(now())
 
-  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 
   @@map("codigos_verificacao")
 }
@@ -85,7 +84,7 @@ model Morador {
   contas        Conta[] @relation("ContaMoradores")
 
   usuario   Usuario   @relation(fields: [moradorId], references: [id])
-  republica Republica @relation(fields: [republicaId], references: [id])
+  republica Republica @relation(fields: [republicaId], references: [id], onDelete: Cascade)
 
   @@unique([moradorId, republicaId])
   @@map("moradores")
@@ -97,12 +96,13 @@ model Convite {
   status StatusConvite @default(PENDENTE)
 
   republicaId String
-  republica   Republica @relation(fields: [republicaId], references: [id])
+  republica   Republica @relation(fields: [republicaId], references: [id], onDelete: Cascade)
 
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
-  usuario      Usuario? @relation(fields: [usuarioId], references: [id])
-  usuarioId    String?
+
+  usuarioId String?
+  usuario   Usuario? @relation(fields: [usuarioId], references: [id], onDelete: SetNull)
 
   @@map("convites")
 }
@@ -121,11 +121,11 @@ model Conta {
 
   metodoPagamento String?
 
-  republica   Republica @relation(fields: [republicaId], references: [id])
   republicaId String
+  republica   Republica @relation(fields: [republicaId], references: [id], onDelete: Cascade)
 
   criadoPorId String
-  criadoPor   Morador @relation("ContaCriadaPor", fields: [criadoPorId], references: [id])
+  criadoPor   Morador @relation("ContaCriadaPor", fields: [criadoPorId], references: [id], onDelete: Restrict)
 
   moradores Morador[] @relation("ContaMoradores")
 

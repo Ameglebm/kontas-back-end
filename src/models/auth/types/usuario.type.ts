@@ -9,3 +9,5 @@ export type Usuario = {
   criadoEm: Date;
   atualizadoEm: Date;
 };
+
+// Analisar sobre valor null 
