@@ -1,6 +1,7 @@
 import {
     Inject,
     Injectable,
+    NotFoundException,
 } from '@nestjs/common';
 import { IRepublicaService } from '../interfaces/republica.service.interface';
 import { Republica } from '@prisma/client';
@@ -14,6 +15,7 @@ export class RepublicaService implements IRepublicaService {
         private readonly republicaRepository: RepublicaRepository,
     ) { }
 
+    // Fazer tratamento de erros depois aqui
     async criarRepublica(
         usuarioId: string,
         nome: string,
@@ -25,16 +27,45 @@ export class RepublicaService implements IRepublicaService {
             imagemRepublica,
         })
     }
-    async atualizarRepublica(republicaId: string, usuarioIdId: string, data: { nome?: string; imagemRepublica?: string; }): Promise<Republica> {
+    async atualizarRepublica(
+        republicaId: string,
+        usuarioId: string,
+        data: { nome?: string; imagemRepublica?: string },
+    ): Promise<Republica> {
+        const republica = await this.republicaRepository.buscarPorId(republicaId);
+        if (!republica) {
+            throw new NotFoundException('República não encontrada');
+        }
+        // 🔒 FUTURO (quando checar role):
+        // if (!isAdmin) {
+        //   throw new ForbiddenException('Apenas ADMIN pode atualizar a república');
+        // }
         return this.republicaRepository.atualizarRepublica(republicaId, data);
     }
-    async buscarRepublicaPorId(republicaId: string): Promise<Republica | null> {
-        return this.republicaRepository.buscarPorId(republicaId);
+    async buscarRepublicaPorId(republicaId: string): Promise<Republica> {
+        const republica = await this.republicaRepository.buscarPorId(republicaId);
+
+        if (!republica) {
+            throw new NotFoundException('República não encontrada');
+        }
+
+        return republica;
     }
     async listarRepublicaPorUsuario(usuarioId: string): Promise<Republica[]> {
         return this.republicaRepository.listarPorUsuario(usuarioId);
     }
-    async deletarRepublica(republicaId: string, usuarioId: string): Promise<void> {
-        return this.republicaRepository.deletar(republicaId);
+    async deletarRepublica(
+        republicaId: string,
+        usuarioId: string,
+    ): Promise<void> {
+        const republica = await this.republicaRepository.buscarPorId(republicaId);
+        if (!republica) {
+            throw new NotFoundException('República não encontrada');
+        }
+        // 🔒 FUTURO
+        // if (!isAdmin) {
+        //   throw new ForbiddenException('Apenas ADMIN pode deletar a república');
+        // }
+        await this.republicaRepository.deletar(republicaId);
     }
 }
