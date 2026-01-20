@@ -1,0 +1,106 @@
+import { Injectable, ForbiddenException, NotFoundException } from '@nestjs/common';
+import { MoradorService as IMoradorService } from '../interface/morador.service.interface';
+import { MoradorRepository } from '../repository/morador.repository';
+import { CriarMoradorDto } from '../dtos/moradorDto';
+import { AtualizarMoradorDto } from '../dtos/morador-updateDto';
+import { MoradorResponseDto } from '../dtos/morador-responseDto';
+import { Role } from '@prisma/client';
+
+@Injectable()
+export class MoradorService implements IMoradorService {
+  constructor(
+    private readonly moradorRepository: MoradorRepository,
+  ) { }
+
+  async criar(data: CriarMoradorDto): Promise<MoradorResponseDto> {
+    const existente = await this.moradorRepository.buscarPorUsuarioERepublica(
+      data.moradorId,
+      data.republicaId,
+    );
+
+    if (existente) {
+      throw new ForbiddenException('Usuário já é morador desta república');
+    }
+
+    const morador = await this.moradorRepository.criar({
+      moradorId: data.moradorId,
+      republicaId: data.republicaId,
+      role: data.role,
+    });
+
+    return this.toResponse(morador);
+  }
+
+  async listarPorRepublica(
+    republicaId: string,
+  ): Promise<MoradorResponseDto[]> {
+    const moradores = await this.moradorRepository.listarPorRepublica(
+      republicaId,
+    );
+
+    return moradores.map(this.toResponse);
+  }
+
+  async atualizar(
+    moradorId: string,
+    data: AtualizarMoradorDto,
+    usuarioLogadoId: string,
+  ): Promise<MoradorResponseDto> {
+    const morador = await this.moradorRepository.buscarPorId(moradorId);
+
+    if (!morador) {
+      throw new NotFoundException('Morador não encontrado');
+    }
+
+    const admin = await this.moradorRepository.buscarPorUsuarioERepublica(
+      usuarioLogadoId,
+      morador.republicaId,
+    );
+
+    if (!admin || admin.role !== Role.ADMIN) {
+      throw new ForbiddenException('Apenas ADMIN pode executar esta ação');
+    }
+
+    const atualizado = await this.moradorRepository.atualizar(
+      moradorId,
+      morador.republicaId,
+      data,
+    );
+
+    return this.toResponse(atualizado);
+  }
+
+  async remover(
+    moradorId: string,
+    usuarioLogadoId: string,
+  ): Promise<void> {
+    const morador = await this.moradorRepository.buscarPorId(moradorId);
+
+    if (!morador) {
+      throw new NotFoundException('Morador não encontrado');
+    }
+
+    const admin = await this.moradorRepository.buscarPorUsuarioERepublica(
+      usuarioLogadoId,
+      morador.republicaId,
+    );
+
+    if (!admin || admin.role !== Role.ADMIN) {
+      throw new ForbiddenException('Apenas ADMIN pode remover morador');
+    }
+
+    await this.moradorRepository.remover(moradorId);
+  }
+
+  // 🔁 conversão padrão
+  private toResponse(morador: any): MoradorResponseDto {
+    return {
+      id: morador.id,
+      moradorId: morador.moradorId,
+      republicaId: morador.republicaId,
+      role: morador.role,
+      criadoEm: morador.criadoEm,
+      atualizadoEm: morador.atualizadoEm,
+    };
+  }
+}

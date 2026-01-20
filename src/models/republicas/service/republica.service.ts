@@ -15,7 +15,6 @@ export class RepublicaService implements IRepublicaService {
     ) { }
 
     async criarRepublica(
-        usuarioId: string,
         nome: string,
         imagemRepublica?: string,
     ): Promise<Republica> {
