@@ -1,14 +1,16 @@
-import { Injectable, ForbiddenException, NotFoundException } from '@nestjs/common';
+import { Injectable, ForbiddenException, NotFoundException, Inject } from '@nestjs/common';
 import { MoradorService as IMoradorService } from '../interface/morador.service.interface';
 import { MoradorRepository } from '../repository/morador.repository';
 import { CriarMoradorDto } from '../dtos/moradorDto';
 import { AtualizarMoradorDto } from '../dtos/morador-updateDto';
 import { MoradorResponseDto } from '../dtos/morador-responseDto';
 import { Role } from '@prisma/client';
+import { MORADOR_REPOSITORY } from '../morador.constants'
 
 @Injectable()
 export class MoradorService implements IMoradorService {
   constructor(
+    @Inject(MORADOR_REPOSITORY)
     private readonly moradorRepository: MoradorRepository,
   ) { }
 

@@ -21,9 +21,9 @@ export class MoradorRepository implements IMoradorRepository {
     });
   }
 
-  async buscarPorId(moradorId: string): Promise<Morador | null> {
+  async buscarPorId(id: string): Promise<Morador | null> {
     return prisma.morador.findUnique({
-      where: { id: moradorId },
+      where: { id },
     });
   }
 

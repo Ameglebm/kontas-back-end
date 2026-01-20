@@ -19,7 +19,7 @@ export interface MoradorRepository {
 
   atualizar(
     moradorId: string,
-    id: string,
+    republicaId: string,
     data: {
       role?: Role;
     },
