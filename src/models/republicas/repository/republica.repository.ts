@@ -7,7 +7,7 @@ import { prisma } from 'src/lib/prisma';
 export class RepublicaRepository implements IRepublicaRepository {
 
     async criarRepublica(data: {
-        usuarioId?: string;
+        usuarioId: string;
         nome: string;
         imagemRepublica?: string;
     }): Promise<Republica> {
@@ -15,6 +15,12 @@ export class RepublicaRepository implements IRepublicaRepository {
             data: {
                 nome: data.nome,
                 imagemRepublica: data.imagemRepublica ?? null,
+                moradores: {
+                    create: {
+                        moradorId: data.usuarioId,
+                        role: 'ADMIN', // ou DONO
+                    },
+                },
             },
         });
     }

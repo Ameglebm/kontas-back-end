@@ -25,7 +25,7 @@ export class RepublicaService implements IRepublicaService {
             imagemRepublica,
         })
     }
-    async atualizarRepublica(republicaId: string, usuarioId: string, data: { nome?: string; imagemRepublica?: string; }): Promise<Republica> {
+    async atualizarRepublica(republicaId: string, usuarioIdId: string, data: { nome?: string; imagemRepublica?: string; }): Promise<Republica> {
         return this.republicaRepository.atualizarRepublica(republicaId, data);
     }
     async buscarRepublicaPorId(republicaId: string): Promise<Republica | null> {
