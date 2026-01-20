@@ -54,7 +54,7 @@ export class MoradorController {
                     id: 'uuid-morador',
                     nome: 'João',
                     email: 'joao@email.com',
-                    papel: 'MORADOR',
+                    role: 'MORADOR',
                     status: 'ATIVO',
                 },
             },
@@ -84,7 +84,7 @@ export class MoradorController {
                     {
                         id: 'uuid-morador',
                         nome: 'Maria',
-                        papel: 'ADMIN',
+                        role: 'ADMIN',
                         status: 'ATIVO',
                     },
                 ],
@@ -111,7 +111,7 @@ export class MoradorController {
             'application/json': {
                 example: {
                     id: 'uuid-morador',
-                    papel: 'ADMIN',
+                    role: 'ADMIN',
                     status: 'ATIVO',
                 },
             },
