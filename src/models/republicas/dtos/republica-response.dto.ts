@@ -8,5 +8,5 @@ export class RepublicaResponseDto {
     nome!: string
 
     @ApiProperty({ example: 'https://exemplo.com/imagem.jpg', required: false })
-    imagemRepublica!: string
+    imagemRepublica?: string
 }

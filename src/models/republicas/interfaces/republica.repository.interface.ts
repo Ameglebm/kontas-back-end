@@ -2,6 +2,7 @@ import { Republica } from '@prisma/client';
 
 export interface IRepublicaRepository {
     criarRepublica(data: {
+        usuarioId: string,
         nome: string;
         imagemRepublica?: string;
     }): Promise<Republica>;

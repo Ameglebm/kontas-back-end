@@ -15,10 +15,12 @@ export class RepublicaService implements IRepublicaService {
     ) { }
 
     async criarRepublica(
+        usuarioId: string,
         nome: string,
         imagemRepublica?: string,
     ): Promise<Republica> {
         return this.republicaRepository.criarRepublica({
+            usuarioId,
             nome,
             imagemRepublica,
         })

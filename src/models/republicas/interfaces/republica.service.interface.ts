@@ -9,7 +9,7 @@ export interface IRepublicaService {
         usuarioId: string,
         nome: string,
         imagemRepublica?: string,
-    ): Promise<Republica>
+    ): Promise<Republica> 
     // 🔹 Buscar república pelo ID
     buscarRepublicaPorId(republicaId: string): Promise<Republica | null>;
     // 🔹 Listar repúblicas que o usuário participa
