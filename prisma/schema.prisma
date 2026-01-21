@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  // url      = env("DATABASE_URL")
 }
 
 // Enuns
@@ -72,7 +72,7 @@ model CodigoVerificacao {
 
 model Morador {
   id          String @id @default(uuid())
-  moradorId   String
+  usuarioId   String
   republicaId String
 
   role Role
@@ -83,10 +83,10 @@ model Morador {
   contasCriadas Conta[] @relation("ContaCriadaPor")
   contas        Conta[] @relation("ContaMoradores")
 
-  usuario   Usuario   @relation(fields: [moradorId], references: [id])
+  usuario   Usuario   @relation(fields: [usuarioId], references: [id])
   republica Republica @relation(fields: [republicaId], references: [id], onDelete: Cascade)
 
-  @@unique([moradorId, republicaId])
+  @@unique([usuarioId, republicaId])
   @@map("moradores")
 }
 

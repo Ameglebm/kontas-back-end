@@ -8,13 +8,13 @@ import { prisma } from 'src/lib/prisma';
 export class MoradorRepository implements IMoradorRepository {
 
   async criar(data: {
-    moradorId: string;
+    usuarioId: string;
     republicaId: string;
     role: Role;
   }): Promise<Morador> {
     return prisma.morador.create({
       data: {
-        moradorId: data.moradorId,
+        usuarioId: data.usuarioId,
         republicaId: data.republicaId,
         role: data.role,
       },
@@ -28,12 +28,12 @@ export class MoradorRepository implements IMoradorRepository {
   }
 
   async buscarPorUsuarioERepublica(
-    moradorId: string,
+    usuarioId: string,
     republicaId: string,
   ): Promise<Morador | null> {
     return prisma.morador.findFirst({
       where: {
-        moradorId,
+        usuarioId,
         republicaId,
       },
     });
@@ -44,18 +44,31 @@ export class MoradorRepository implements IMoradorRepository {
       where: {
         republicaId,
       },
+      include: {
+        usuario: {
+          select: {
+            id: true,
+            nome: true,
+            email: true,
+            fotoPerfil: true,
+            telefone: true,
+            chavePix: true,
+
+          }
+        }
+      }
     });
   }
 
   async atualizar(
-    moradorId: string,
+    usuarioId: string,
     republicaId: string,
     data: { role?: Role },
   ): Promise<Morador> {
     return prisma.morador.update({
       where: {
-        moradorId_republicaId: {
-          moradorId,
+        usuarioId_republicaId: {
+          usuarioId,
           republicaId,
         },
       },

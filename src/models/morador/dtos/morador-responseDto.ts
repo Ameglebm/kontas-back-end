@@ -4,8 +4,8 @@ export class MoradorResponseDto {
   @ApiProperty({ example: 'uuid-morador' })
   id!: string;
 
-  @ApiProperty({ example: 'uuid-morador' })
-  moradorId!: string;
+  @ApiProperty({ example: 'uuid-usuario' })
+  usuarioId!: string;
 
   @ApiProperty({ example: 'uuid-republica' })
   republicaId!: string;

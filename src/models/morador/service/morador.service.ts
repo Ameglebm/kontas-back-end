@@ -16,7 +16,7 @@ export class MoradorService implements IMoradorService {
 
   async criar(data: CriarMoradorDto): Promise<MoradorResponseDto> {
     const existente = await this.moradorRepository.buscarPorUsuarioERepublica(
-      data.moradorId,
+      data.usuarioId,
       data.republicaId,
     );
 
@@ -25,7 +25,7 @@ export class MoradorService implements IMoradorService {
     }
 
     const morador = await this.moradorRepository.criar({
-      moradorId: data.moradorId,
+      usuarioId: data.usuarioId,
       republicaId: data.republicaId,
       role: data.role,
     });
@@ -98,7 +98,7 @@ export class MoradorService implements IMoradorService {
   private toResponse(morador: any): MoradorResponseDto {
     return {
       id: morador.id,
-      moradorId: morador.moradorId,
+      usuarioId: morador.usuarioId,
       republicaId: morador.republicaId,
       role: morador.role,
       criadoEm: morador.criadoEm,

@@ -8,7 +8,7 @@ export interface MoradorService {
   listarPorRepublica(republicaId: string): Promise<MoradorResponseDto[]>;
 
   atualizar(
-    moradorId: string,
+    usuarioIdId: string,
     data: AtualizarMoradorDto,
     usuarioLogadoId: string,
   ): Promise<MoradorResponseDto>;
