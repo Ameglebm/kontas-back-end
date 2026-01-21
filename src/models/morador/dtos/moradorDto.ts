@@ -15,7 +15,7 @@ export class CriarMoradorDto {
 
   @ApiProperty({
     example: Role.ADMIN,
-    enum: Role,
+    enum: Role, required: false
   })
   @IsEnum(Role, {
     message: 'role deve ser ADMIN ou USER',

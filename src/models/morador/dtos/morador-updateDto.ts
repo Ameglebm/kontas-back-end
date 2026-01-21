@@ -8,7 +8,7 @@ export class AtualizarMoradorDto {
     enum: Role,
     required: false,
   })
-  @IsOptional()
+  @IsOptional({ message: 'É opcional' })
   @IsEnum(Role, {
     message: 'role deve ser ADMIN ou USER',
   })
