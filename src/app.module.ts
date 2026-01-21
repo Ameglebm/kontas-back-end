@@ -5,6 +5,7 @@ import { UsuarioModule } from './models/usuario/usuario.module';
 import { RepublicaModule } from './models/republicas/republica.module';
 import { MoradorModule } from './models/morador/morador.module'
 import { ConviteModule } from './models/convite/convite.module';
+import { ContaModule } from './models/contas/contas.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ConviteModule } from './models/convite/convite.module';
     RepublicaModule,
     MoradorModule,
     ConviteModule,
+    ContaModule,
   ],
 })
 export class AppModule {}

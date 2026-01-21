@@ -19,6 +19,12 @@ enum StatusConvite {
   RECUSADO
 }
 
+enum StatusConta {
+  PENDENTE
+  PAGA
+  ATRASADA
+}
+
 // Models
 model Usuario {
   id         String  @id @default(uuid())
@@ -115,6 +121,8 @@ model Conta {
   vencimento DateTime
   pago       Boolean   @default(false)
   pagoEm     DateTime?
+
+  status StatusConta @default(PENDENTE)
 
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
