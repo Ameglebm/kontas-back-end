@@ -11,7 +11,6 @@ export class ConviteRepository implements IConviteRepository {
     email: string;
     republicaId: string;
     status: StatusConvite;
-    role: Role;
   }): Promise<Convite> {
     return prisma.convite.create({
       data,

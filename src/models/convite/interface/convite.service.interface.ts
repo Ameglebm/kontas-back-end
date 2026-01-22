@@ -7,7 +7,6 @@ export interface ConviteService {
   criar(
     data: CriarConviteDto,
     usuarioLogadoId: string,
-    role: Role,
   ): Promise<ConviteResponseDto>;
 
   listarPorRepublica(
