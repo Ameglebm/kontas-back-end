@@ -1,11 +1,13 @@
 import { CriarConviteDto } from '../dtos/conviteDto';
 import { AtualizarConviteDto } from '../dtos/convite-update.dto';
 import { ConviteResponseDto } from '../dtos/convite-response.dto';
+import { Role } from '@prisma/client'
 
 export interface ConviteService {
   criar(
     data: CriarConviteDto,
     usuarioLogadoId: string,
+    role: Role,
   ): Promise<ConviteResponseDto>;
 
   listarPorRepublica(

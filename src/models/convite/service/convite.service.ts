@@ -51,6 +51,7 @@ export class ConviteService implements IConviteService {
       email: data.email,
       republicaId: data.republicaId,
       status: StatusConvite.PENDENTE,
+      role: Role.ADMIN
     });
 
     return this.toResponse(convite);

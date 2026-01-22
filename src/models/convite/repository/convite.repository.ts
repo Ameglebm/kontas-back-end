@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { prisma } from 'src/lib/prisma';
 import { ConviteRepository as IConviteRepository } from '../interface/convite.repository.interface';
-import { StatusConvite } from '@prisma/client';
+import { StatusConvite, Role } from '@prisma/client';
 import { Convite } from '@prisma/client';
 
 @Injectable()
@@ -11,6 +11,7 @@ export class ConviteRepository implements IConviteRepository {
     email: string;
     republicaId: string;
     status: StatusConvite;
+    role: Role;
   }): Promise<Convite> {
     return prisma.convite.create({
       data,

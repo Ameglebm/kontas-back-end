@@ -85,10 +85,13 @@ export class MoradorController {
             'application/json': {
                 example: [
                     {
-                        id: 'uuid-morador',
-                        nome: 'Maria',
-                        role: 'USER',
-                        status: 'ATIVO',
+                    id: 'uuid-morador',
+                    nome: 'João',
+                    email: 'joao@email.com',
+                    fotoPerfil: 'link-da-foto.jpg',
+                    chavePix: 'chave-pix@email.com',
+                    telefone: '(24) 99999-9999',
+                    role: 'USER',
                     },
                 ],
             },
