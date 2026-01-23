@@ -3,7 +3,7 @@ import { MoradorService as IMoradorService } from '../interface/morador.service.
 import { MoradorRepository } from '../repository/morador.repository';
 import { CriarMoradorDto } from '../dtos/moradorDto';
 import { AtualizarMoradorDto } from '../dtos/morador-updateDto';
-import { MoradorResponseDto } from '../dtos/morador-responseDto';
+import { MoradorListResponseDto, MoradorResponseDto } from '../dtos/morador-responseDto';
 import { Role } from '@prisma/client';
 import { MORADOR_REPOSITORY } from '../morador.constants'
 
@@ -35,13 +35,14 @@ export class MoradorService implements IMoradorService {
 
   async listarPorRepublica(
     republicaId: string,
-  ): Promise<MoradorResponseDto[]> {
+  ): Promise<MoradorListResponseDto[]> {
     const moradores = await this.moradorRepository.listarPorRepublica(
       republicaId,
     );
 
-    return moradores.map(this.toResponse);
+    return moradores.map(this.toListResponse);
   }
+
 
   async atualizar(
     moradorId: string,
@@ -105,4 +106,18 @@ export class MoradorService implements IMoradorService {
       atualizadoEm: morador.atualizadoEm,
     };
   }
+
+  private toListResponse(morador: any): MoradorListResponseDto {
+    return {
+      id: morador.id,
+      nome: morador.usuario.nome,
+      email: morador.usuario.email,
+      fotoPerfil: morador.usuario.fotoPerfil,
+      chavePix: morador.usuario.chavePix,
+      telefone: morador.usuario.telefone,
+      role: morador.role,
+    };
+  }
+
+
 }

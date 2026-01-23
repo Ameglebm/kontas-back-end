@@ -24,6 +24,7 @@ import type { MoradorService } from '../interface/morador.service.interface';
 
 import { CriarMoradorDto } from '../dtos/moradorDto';
 import { AtualizarMoradorDto } from '../dtos/morador-updateDto';
+import { MoradorListResponseDto } from '../dtos/morador-responseDto';
 
 interface AuthenticatedUser {
     id: string;
@@ -81,21 +82,8 @@ export class MoradorController {
     @ApiResponse({
         status: 200,
         description: 'Moradores listados com sucesso',
-        content: {
-            'application/json': {
-                example: [
-                    {
-                    id: 'uuid-morador',
-                    nome: 'João',
-                    email: 'joao@email.com',
-                    fotoPerfil: 'link-da-foto.jpg',
-                    chavePix: 'chave-pix@email.com',
-                    telefone: '(24) 99999-9999',
-                    role: 'USER',
-                    },
-                ],
-            },
-        },
+        type: MoradorListResponseDto, // Para testes
+        isArray: true,
     })
     @ApiResponse({ status: 400, description: 'ID da república inválido' })
     @ApiResponse({ status: 401, description: 'Não autenticado' })

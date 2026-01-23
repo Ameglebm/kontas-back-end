@@ -1,11 +1,11 @@
 import { CriarMoradorDto } from '../dtos/moradorDto';
 import { AtualizarMoradorDto } from '../dtos/morador-updateDto';
-import { MoradorResponseDto } from '../dtos/morador-responseDto';
+import { MoradorListResponseDto, MoradorResponseDto } from '../dtos/morador-responseDto';
 
 export interface MoradorService {
   criar(data: CriarMoradorDto): Promise<MoradorResponseDto>;
 
-  listarPorRepublica(republicaId: string): Promise<MoradorResponseDto[]>;
+  listarPorRepublica(republicaId: string): Promise<MoradorListResponseDto[]>;
 
   atualizar(
     usuarioIdId: string,
