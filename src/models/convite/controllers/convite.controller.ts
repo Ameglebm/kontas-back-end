@@ -23,6 +23,7 @@ import { CriarConviteDto } from '../dtos/conviteDto';
 import { AtualizarConviteDto } from '../dtos/convite-update.dto';
 
 interface AuthenticatedUser {
+    email: string;
     id: string;
 }
 interface AuthenticatedRequest extends Request {
@@ -130,7 +131,7 @@ export class ConviteController {
         return this.conviteService.atualizarStatus(
             conviteId,
             dto,
-            req.user.id,
+            req.user.email
         );
     }
 }

@@ -22,7 +22,7 @@ export class ConviteService implements IConviteService {
 
     @Inject(MORADOR_REPOSITORY)
     private readonly moradorRepository: MoradorRepository,
-  ) {}
+  ) { }
 
   async criar(
     data: CriarConviteDto,
@@ -69,7 +69,7 @@ export class ConviteService implements IConviteService {
   async atualizarStatus(
     conviteId: string,
     data: AtualizarConviteDto,
-    usuarioLogadoId: string,
+    usuarioLogadoEmail: string,
   ): Promise<ConviteResponseDto> {
     const convite = await this.conviteRepository.buscarPorId(conviteId);
 
@@ -78,7 +78,7 @@ export class ConviteService implements IConviteService {
     }
 
     // 🔒 só o usuário convidado pode aceitar/recusar
-    if (convite.usuarioId !== usuarioLogadoId) {
+    if (convite.email !== usuarioLogadoEmail) {
       throw new ForbiddenException('Você não pode alterar este convite');
     }
 

@@ -1,7 +1,6 @@
 import { CriarConviteDto } from '../dtos/conviteDto';
 import { AtualizarConviteDto } from '../dtos/convite-update.dto';
 import { ConviteResponseDto } from '../dtos/convite-response.dto';
-import { Role } from '@prisma/client'
 
 export interface ConviteService {
   criar(
@@ -16,6 +15,6 @@ export interface ConviteService {
   atualizarStatus(
     conviteId: string,
     data: AtualizarConviteDto,
-    usuarioLogadoId: string,
+    email: string,
   ): Promise<ConviteResponseDto>;
 }
