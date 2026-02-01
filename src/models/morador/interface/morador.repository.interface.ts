@@ -3,7 +3,7 @@ import { Role } from '@prisma/client';
 
 export interface MoradorRepository {
   criar(data: {
-    moradorId: string;
+    usuarioId: string;
     republicaId: string;
     role: Role;
   }): Promise<Morador>;
@@ -11,14 +11,14 @@ export interface MoradorRepository {
   buscarPorId(moradorId: string): Promise<Morador | null>;
 
   buscarPorUsuarioERepublica(
-    moradorId: string,
+    usuarioId: string,
     republicaId: string,
   ): Promise<Morador | null>;
 
   listarPorRepublica(republicaId: string): Promise<Morador[]>;
 
   atualizar(
-    moradorId: string,
+    usuarioId: string,
     republicaId: string,
     data: {
       role?: Role;

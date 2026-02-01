@@ -17,7 +17,7 @@ export class RepublicaRepository implements IRepublicaRepository {
                 imagemRepublica: data.imagemRepublica ?? null,
                 moradores: {
                     create: {
-                        moradorId: data.usuarioId,
+                        usuarioId: data.usuarioId,
                         role: 'ADMIN', // ou DONO
                     },
                 },
@@ -36,7 +36,7 @@ export class RepublicaRepository implements IRepublicaRepository {
             where: {
                 moradores: {
                     some: {
-                        moradorId: usuarioId,
+                        usuarioId: usuarioId,
                     },
                 },
             },

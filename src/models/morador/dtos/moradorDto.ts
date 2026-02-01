@@ -6,7 +6,7 @@ export class CriarMoradorDto {
   @ApiProperty({ example: 'uuid-morador' })
   @IsNotEmpty({ message: 'moradorId é obrigatório' })
   @IsString({ message: 'moradorId deve ser uma string' })
-  moradorId!: string;
+  usuarioId!: string;
 
   @ApiProperty({ example: 'uuid-republica' })
   @IsNotEmpty({ message: 'republicaId é obrigatório' })
@@ -15,10 +15,10 @@ export class CriarMoradorDto {
 
   @ApiProperty({
     example: Role.ADMIN,
-    enum: Role,
+    enum: Role, required: false
   })
   @IsEnum(Role, {
-    message: 'role deve ser ADMIN ou MORADOR',
+    message: 'role deve ser ADMIN ou USER',
   })
   role!: Role;
 }

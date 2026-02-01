@@ -19,6 +19,12 @@ enum StatusConvite {
   RECUSADO
 }
 
+enum StatusConta {
+  PENDENTE
+  PAGA
+  ATRASADA
+}
+
 // Models
 model Usuario {
   id         String  @id @default(uuid())
@@ -72,7 +78,7 @@ model CodigoVerificacao {
 
 model Morador {
   id          String @id @default(uuid())
-  moradorId   String
+  usuarioId   String
   republicaId String
 
   role Role
@@ -83,10 +89,10 @@ model Morador {
   contasCriadas Conta[] @relation("ContaCriadaPor")
   contas        Conta[] @relation("ContaMoradores")
 
-  usuario   Usuario   @relation(fields: [moradorId], references: [id])
+  usuario   Usuario   @relation(fields: [usuarioId], references: [id])
   republica Republica @relation(fields: [republicaId], references: [id], onDelete: Cascade)
 
-  @@unique([moradorId, republicaId])
+  @@unique([usuarioId, republicaId])
   @@map("moradores")
 }
 
@@ -115,6 +121,8 @@ model Conta {
   vencimento DateTime
   pago       Boolean   @default(false)
   pagoEm     DateTime?
+
+  status StatusConta @default(PENDENTE)
 
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
