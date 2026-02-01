@@ -6,16 +6,15 @@ O **Kontas** é um sistema de **gestão financeira compartilhada para república
 
 A aplicação permite que os usuários:
 
-- 🏠 Criem ou entrem em uma república  
-- 👥 Convidem moradores  
-- 💰 Cadastrem contas e despesas compartilhadas  
-- ➗ Dividam valores automaticamente  
-- ✅ Acompanhem quem já pagou e quem ainda está pendente  
+- 🏠 Criem ou entrem em uma república
+- 👥 Convidem moradores
+- 💰 Cadastrem contas e despesas compartilhadas
+- ➗ Dividam valores automaticamente
+- ✅ Acompanhem quem já pagou e quem ainda está pendente
 
 O backend foi desenvolvido com **NestJS**, **Prisma ORM** e **PostgreSQL**, utilizando uma abordagem **Data-Centric** para garantir integridade, consistência e segurança dos dados.
 
 ---
-
 
 ## 📃 Sobre o Projeto
 
@@ -368,15 +367,15 @@ O projeto pode ser deployado em qualquer ambiente Node.js, como:
 
 ## 📦 Módulos Principais
 
-| Módulo        | Descrição                                     | Endpoints Principais      |
-| ------------- | --------------------------------------------- | ------------------------- |
-| Auth          | Autenticação JWT e Google OAuth 2.0           | /auth/login, /auth/google |
-| Usuários      | Cadastro e gerenciamento de usuários          | /usuarios                 |
-| Repúblicas    | Criação e gestão de repúblicas                | /republicas               |
-| Moradores     | Gestão de moradores vinculados às repúblicas  | /moradores                |
-| Contas        | Criação e gerenciamento de contas financeiras | /contas                   |
-| ContasMorador | Associação de contas aos moradores            | /contas-morador           |
-| Convites      | Envio e gerenciamento de convites             | /convites                 |
+| Módulo       | Descrição                                     | Endpoints Principais          |
+| ------------ | --------------------------------------------- | ----------------------------- |
+| Auth         | Autenticação JWT e Google OAuth 2.0           | `/auth/login`, `/auth/google` |
+| Usuário      | Cadastro e gerenciamento de usuários          | `/usuarios`                   |
+| Repúblicas   | Criação e gestão de repúblicas                | `/republicas`                 |
+| Moradores    | Gestão de moradores vinculados às repúblicas  | `/moradores`                  |
+| Contas       | Criação e gerenciamento de contas financeiras | `/contas`                     |
+| ContaMorador | Associação de contas aos moradores            | `/contas-morador`             |
+| Convites     | Envio e gerenciamento de convites             | `/convites`                   |
 
 ## 🚧 Autor
 
