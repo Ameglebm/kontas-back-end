@@ -1,10 +1,21 @@
 # 📘 Kontas — Backend
 
-O **Kontas** é um sistema de gestão financeira compartilhada para **repúblicas**, desenvolvido com **NestJS**, **Prisma ORM** e **PostgreSQL**, seguindo uma arquitetura **Data-Centric**, onde o banco de dados é a fonte de verdade do domínio.
+![Visão geral do Kontas](../kontas-back-end/md/kontas-overview.png.png)
 
-O sistema permite que usuários criem repúblicas, gerenciem moradores, convites e contas compartilhadas, mantendo regras de acesso e integridade bem definidas.
+O **Kontas** é um sistema de **gestão financeira compartilhada para repúblicas**, criado para organizar despesas, dividir contas e acompanhar pagamentos de forma simples e transparente entre moradores.
+
+A aplicação permite que os usuários:
+
+- 🏠 Criem ou entrem em uma república  
+- 👥 Convidem moradores  
+- 💰 Cadastrem contas e despesas compartilhadas  
+- ➗ Dividam valores automaticamente  
+- ✅ Acompanhem quem já pagou e quem ainda está pendente  
+
+O backend foi desenvolvido com **NestJS**, **Prisma ORM** e **PostgreSQL**, utilizando uma abordagem **Data-Centric** para garantir integridade, consistência e segurança dos dados.
 
 ---
+
 
 ## 📃 Sobre o Projeto
 
