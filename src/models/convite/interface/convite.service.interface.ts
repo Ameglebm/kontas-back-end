@@ -19,7 +19,7 @@ export interface ConviteService {
     usuarioId: string,
   ): Promise<ConviteResponseDto>;
 
-  listarPorUsuario(
+  listarMeusConvites(
     email: string,
   ): Promise<ConviteResponseDto[]>;
 }

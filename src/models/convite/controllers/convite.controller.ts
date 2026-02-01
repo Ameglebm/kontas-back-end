@@ -158,13 +158,10 @@ export class ConviteController {
     })
     @ApiResponse({ status: 401, description: 'Não autenticado' })
     @ApiResponse({ status: 500, description: 'Erro interno do servidor' })
-    @Get('listarPorEmail/:usuarioId')
+    @Get('me')
     async listarMeusConvites(
         @Req() req: AuthenticatedRequest,
-        @Param('usuarioId') usuarioId: string,
     ) {
-        return this.conviteService.listarPorUsuario(
-            req.user.email,
-        );
+        return this.conviteService.listarMeusConvites(req.user.email);
     }
-}   
+}

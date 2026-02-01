@@ -13,6 +13,7 @@ import { Role, StatusConvite } from '@prisma/client';
 import { CONVITE_REPOSITORY } from '../convite.constants';
 import { MORADOR_REPOSITORY } from 'src/models/morador/morador.constants';
 import { MoradorRepository } from '../../morador/repository/morador.repository'
+import { use } from 'passport';
 
 @Injectable()
 export class ConviteService implements IConviteService {
@@ -66,11 +67,11 @@ export class ConviteService implements IConviteService {
     return convites.map(this.toResponse);
   }
 
-  async listarPorUsuario(
+  async listarMeusConvites(
     email: string,
   ): Promise<ConviteResponseDto[]> {
 
-    const convites = await this.conviteRepository.listarPorEmail(email);
+    const convites = await this.conviteRepository.listarMeusConvites(email);
 
     return convites.map(this.toResponse);
   }
