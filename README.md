@@ -141,17 +141,11 @@ O projeto segue separação clara de responsabilidades:
 │ │
 │ ├── models/ # Domínios da aplicação
 │ │ ├── auth/ # Autenticação e emissão de token
-│ │ │
 │ │ ├── usuario/ # Usuário e perfil
-│ │ │
 │ │ ├── republicas/ # Repúblicas
-│ │ │
 │ │ ├── morador/ # Relação usuário ↔ república
-│ │ │
 │ │ ├── convite/ # Convites para república
-│ │ │
 │ │ ├── contaMorador/ # Relação contas ↔ moradores
-│ │ │
 │ │ └── contas/ # Contas e despesas compartilhadas
 │ │ ├── controllers/ # Camada HTTP
 │ │ │ └── contas.controller.ts
