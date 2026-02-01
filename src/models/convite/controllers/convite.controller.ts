@@ -165,3 +165,4 @@ export class ConviteController {
         return this.conviteService.listarMeusConvites(req.user.email);
     }
 }
+// Get esta passando de convites para qualquer usuario ver

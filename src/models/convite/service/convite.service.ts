@@ -34,26 +34,21 @@ export class ConviteService implements IConviteService {
       usuarioLogadoId,
       data.republicaId,
     );
-
     if (!admin || admin.role !== Role.ADMIN) {
       throw new ForbiddenException('Apenas ADMIN pode criar convites');
     }
-
     const existente = await this.conviteRepository.buscarPorUsuarioERepublica(
       data.email,
       data.republicaId,
     );
-
     if (existente) {
       throw new ForbiddenException('Usuário já possui convite para esta república');
     }
-
     const convite = await this.conviteRepository.criar({
       email: data.email,
       republicaId: data.republicaId,
       status: StatusConvite.PENDENTE,
     });
-
     return this.toResponse(convite);
   }
 
@@ -63,16 +58,13 @@ export class ConviteService implements IConviteService {
     const convites = await this.conviteRepository.listarPorRepublica(
       republicaId,
     );
-
     return convites.map(this.toResponse);
   }
 
   async listarMeusConvites(
     email: string,
   ): Promise<ConviteResponseDto[]> {
-
     const convites = await this.conviteRepository.listarMeusConvites(email);
-
     return convites.map(this.toResponse);
   }
 
@@ -83,29 +75,23 @@ export class ConviteService implements IConviteService {
     usuarioLogadoId: string,
   ): Promise<ConviteResponseDto> {
     const convite = await this.conviteRepository.buscarPorId(conviteId);
-
     if (!convite) {
       throw new NotFoundException('Convite não encontrado');
     }
-
     // 🔒 só o usuário convidado pode aceitar/recusar
     if (convite.email !== usuarioLogadoEmail) {
       throw new ForbiddenException('Você não pode alterar este convite');
     }
-
     const atualizado = await this.conviteRepository.atualizarStatus(
       conviteId,
       data.status,
     );
-
     if (data.status === StatusConvite.ACEITO) {
-
       const jaEMorador =
         await this.moradorRepository.buscarPorUsuarioERepublica(
           usuarioLogadoId,
           convite.republicaId,
         );
-
       if (!jaEMorador) {
         await this.moradorRepository.criar({
           usuarioId: usuarioLogadoId,
@@ -114,11 +100,8 @@ export class ConviteService implements IConviteService {
         });
       }
     }
-
-
     return this.toResponse(atualizado);
   }
-
   // 🔁 conversão padrão
   private toResponse(convite: any): ConviteResponseDto {
     return {
