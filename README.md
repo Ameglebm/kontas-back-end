@@ -1,6 +1,6 @@
 # 📘 Kontas — Backend
 
-![Visão geral do Kontas](../kontas-back-end/md/kontas-overview.png.png)
+![Visão geral do Kontas](../kontas-back-end/md/kontas-overview.png)
 
 O **Kontas** é um sistema de **gestão financeira compartilhada para repúblicas**, criado para organizar despesas, dividir contas e acompanhar pagamentos de forma simples e transparente entre moradores.
 
