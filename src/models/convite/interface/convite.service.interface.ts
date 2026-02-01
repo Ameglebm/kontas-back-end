@@ -16,5 +16,10 @@ export interface ConviteService {
     conviteId: string,
     data: AtualizarConviteDto,
     email: string,
+    usuarioId: string,
   ): Promise<ConviteResponseDto>;
+
+  listarPorUsuario(
+    email: string,
+  ): Promise<ConviteResponseDto[]>;
 }

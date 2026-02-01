@@ -21,5 +21,7 @@ export interface ConviteRepository {
     status: StatusConvite,
   ): Promise<Convite>;
 
+  listarPorEmail(email: string): Promise<Convite[]>;
+
   remover(conviteId: string): Promise<void>;
 }

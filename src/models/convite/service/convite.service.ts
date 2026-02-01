@@ -66,10 +66,20 @@ export class ConviteService implements IConviteService {
     return convites.map(this.toResponse);
   }
 
+  async listarPorUsuario(
+    email: string,
+  ): Promise<ConviteResponseDto[]> {
+
+    const convites = await this.conviteRepository.listarPorEmail(email);
+
+    return convites.map(this.toResponse);
+  }
+
   async atualizarStatus(
     conviteId: string,
     data: AtualizarConviteDto,
     usuarioLogadoEmail: string,
+    usuarioLogadoId: string,
   ): Promise<ConviteResponseDto> {
     const convite = await this.conviteRepository.buscarPorId(conviteId);
 
@@ -86,6 +96,24 @@ export class ConviteService implements IConviteService {
       conviteId,
       data.status,
     );
+
+    if (data.status === StatusConvite.ACEITO) {
+
+      const jaEMorador =
+        await this.moradorRepository.buscarPorUsuarioERepublica(
+          usuarioLogadoId,
+          convite.republicaId,
+        );
+
+      if (!jaEMorador) {
+        await this.moradorRepository.criar({
+          usuarioId: usuarioLogadoId,
+          republicaId: convite.republicaId,
+          role: Role.USER,
+        });
+      }
+    }
+
 
     return this.toResponse(atualizado);
   }

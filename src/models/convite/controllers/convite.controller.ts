@@ -131,7 +131,40 @@ export class ConviteController {
         return this.conviteService.atualizarStatus(
             conviteId,
             dto,
-            req.user.email
+            req.user.email,
+            req.user.id,
         );
     }
-}
+
+    // 🔹 Listar convites do morador USER
+    @ApiOperation({ summary: 'Lista os convites do usuário logado' })
+    @ApiResponse({
+        status: 200,
+        description: 'Convites listados com sucesso',
+        content: {
+            'application/json': {
+                example: [
+                    {
+                        id: 'uuid-convite',
+                        email: 'usuario@email.com',
+                        republicaId: 'uuid-republica',
+                        status: 'PENDENTE',
+                        criadoEm: '2025-01-01T10:00:00.000Z',
+                        atualizadoEm: '2025-01-01T10:00:00.000Z',
+                    },
+                ],
+            },
+        },
+    })
+    @ApiResponse({ status: 401, description: 'Não autenticado' })
+    @ApiResponse({ status: 500, description: 'Erro interno do servidor' })
+    @Get('listarPorEmail/:usuarioId')
+    async listarMeusConvites(
+        @Req() req: AuthenticatedRequest,
+        @Param('usuarioId') usuarioId: string,
+    ) {
+        return this.conviteService.listarPorUsuario(
+            req.user.email,
+        );
+    }
+}   

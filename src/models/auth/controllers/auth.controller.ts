@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Req, UseGuards, Patch } from '@nestjs/common';
+import { Controller, Post, Body, Req, UseGuards, } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import type { Request } from 'express';
 import { GoogleAuthDto, CompletarDadosRepublicaDto } from '../dtos/authDto';

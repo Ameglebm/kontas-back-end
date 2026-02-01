@@ -51,6 +51,13 @@ export class ConviteRepository implements IConviteRepository {
     });
   }
 
+  async listarPorEmail(email: string): Promise<Convite[]> {
+    return prisma.convite.findMany({
+      where: { email },
+      orderBy: { criadoEm: 'desc' },
+    });
+  }
+
   async remover(conviteId: string): Promise<void> {
     await prisma.convite.delete({
       where: { id: conviteId },
