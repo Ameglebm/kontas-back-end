@@ -121,59 +121,59 @@ O projeto segue separação clara de responsabilidades:
 ---
 
 ## 📂 Estrutura de Pastas
-
+```text
 /kontas-backend
 │
 ├── prisma/
-│ ├── migrations/ # Histórico de migrações do banco
-│ └── schema.prisma # Models, enums e relacionamentos (fonte de verdade)
+│   ├── migrations/              # Histórico de migrações do banco
+│   └── schema.prisma            # Models, enums e relacionamentos (fonte de verdade)
 │
 ├── src/
-│ ├── enums/ # Enums globais do domínio
-│ │
-│ ├── lib/
-│ │ └── prisma.ts # Instância única do PrismaClient
-│ │
-│ ├── middlewares/
-│ │ ├── auth.guard.ts # Autenticação JWT
-│ │ ├── roles.guard.ts # Controle de acesso por papel
-│ │ └── perfilCompleto.guard.ts # Verificação de perfil completo
-│ │
-│ ├── models/ # Domínios da aplicação
-│ │ ├── auth/ # Autenticação e emissão de token
-│ │ ├── usuario/ # Usuário e perfil
-│ │ ├── republicas/ # Repúblicas
-│ │ ├── morador/ # Relação usuário ↔ república
-│ │ ├── convite/ # Convites para república
-│ │ ├── contaMorador/ # Relação contas ↔ moradores
-│ │ └── contas/ # Contas e despesas compartilhadas
-│ │ ├── controllers/ # Camada HTTP
-│ │ │ └── contas.controller.ts
-│ │ ├── dtos/ # DTOs de entrada e saída
-│ │ │ ├── contas.dto.ts
-│ │ │ ├── contas-update.dto.ts
-│ │ │ └── contas-response.dto.ts
-│ │ ├── interface/ # Contratos
-│ │ │ ├── contas.repository.interface.ts
-│ │ │ └── contas.service.interface.ts
-│ │ ├── repository/ # Acesso a dados (Prisma)
-│ │ │ └── contas.repository.ts
-│ │ ├── service/ # Regras de negócio
-│ │ │ └── contas.service.ts
-│ │ ├── types/ # Tipos do domínio
-│ │ ├── contas.constants.ts # Tokens e constantes do módulo
-│ │ └── contas.module.ts # Configuração do módulo
-│ │
-│ ├── app.module.ts # Módulo raiz da aplicação
-│ └── main.ts # Bootstrap do NestJS
+│   ├── enums/                   # Enums globais do domínio
+│   │
+│   ├── lib/
+│   │   └── prisma.ts            # Instância única do PrismaClient
+│   │
+│   ├── middlewares/
+│   │   ├── auth.guard.ts        # Autenticação JWT
+│   │   ├── roles.guard.ts       # Controle de acesso por papel
+│   │   └── perfilCompleto.guard.ts # Verificação de perfil completo
+│   │
+│   ├── models/                  # Domínios da aplicação
+│   │   ├── auth/                # Autenticação e emissão de token
+│   │   ├── usuario/             # Usuário e perfil
+│   │   ├── republicas/          # Repúblicas
+│   │   ├── morador/             # Relação usuário ↔ república
+│   │   ├── convite/             # Convites para república
+│   │   ├── contaMorador/        # Relação contas ↔ moradores
+│   │   └── contas/              # Contas e despesas compartilhadas
+│   │       ├── controllers/     # Camada HTTP
+│   │       │   └── contas.controller.ts
+│   │       ├── dtos/            # DTOs de entrada e saída
+│   │       │   ├── contas.dto.ts
+│   │       │   ├── contas-update.dto.ts
+│   │       │   └── contas-response.dto.ts
+│   │       ├── interface/       # Contratos
+│   │       │   ├── contas.repository.interface.ts
+│   │       │   └── contas.service.interface.ts
+│   │       ├── repository/      # Acesso a dados (Prisma)
+│   │       │   └── contas.repository.ts
+│   │       ├── service/         # Regras de negócio
+│   │       │   └── contas.service.ts
+│   │       ├── types/           # Tipos do domínio
+│   │       ├── contas.constants.ts # Tokens e constantes do módulo
+│   │       └── contas.module.ts # Configuração do módulo
+│   │
+│   ├── app.module.ts            # Módulo raiz da aplicação
+│   └── main.ts                  # Bootstrap do NestJS
 │
-├── test/ # Testes automatizados
-├── .env # Variáveis de ambiente
+├── test/                        # Testes automatizados
+├── .env                         # Variáveis de ambiente
 ├── .gitignore
 ├── package.json
 ├── tsconfig.json
 └── README.md
-
+```
 ## 📦 Models
 
 ---
