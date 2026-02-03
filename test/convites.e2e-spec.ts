@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 
-describe('App (e2e)', () => {
+describe('Convites (e2e)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
@@ -19,9 +19,19 @@ describe('App (e2e)', () => {
     await app.close();
   });
 
-  it('GET /usuarios/me → 401 (sem token)', () => {
+  it('POST /convites → 401', () => {
     return request(app.getHttpServer())
-      .get('/usuarios/me')
+      .post('/convites')
+      .send({
+        email: 'teste@email.com',
+        republicaId: 'fake-id',
+      })
+      .expect(401);
+  });
+
+  it('GET /convites/me → 401', () => {
+    return request(app.getHttpServer())
+      .get('/convites/me')
       .expect(401);
   });
 });

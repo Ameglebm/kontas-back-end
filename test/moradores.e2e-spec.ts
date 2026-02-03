@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 
-describe('App (e2e)', () => {
+describe('Moradores (e2e)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
@@ -19,9 +19,20 @@ describe('App (e2e)', () => {
     await app.close();
   });
 
-  it('GET /usuarios/me → 401 (sem token)', () => {
+  it('POST /moradores → 401 sem autenticação', () => {
     return request(app.getHttpServer())
-      .get('/usuarios/me')
+      .post('/moradores')
+      .send({
+        usuarioId: 'fake',
+        republicaId: 'fake',
+        papel: 'MORADOR',
+      })
+      .expect(401);
+  });
+
+  it('GET /moradores/republica/:id → 401', () => {
+    return request(app.getHttpServer())
+      .get('/moradores/republica/uuid-fake')
       .expect(401);
   });
 });
