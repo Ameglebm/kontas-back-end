@@ -29,11 +29,9 @@ export class ContaService implements IContaService {
       usuarioLogadoId,
       data.republicaId,
     );
-
     if (!admin || admin.role !== Role.ADMIN) {
       throw new ForbiddenException('Apenas ADMIN pode criar contas');
     }
-
     const conta = await this.contaRepository.criar({
       descricao: data.descricao,
       valor: data.valor,
@@ -42,7 +40,9 @@ export class ContaService implements IContaService {
       republicaId: data.republicaId,
       criadoPorId: admin.id,
     });
-
+    // verifiacar se vai colocar divisao da conta com morador aqui
+    // Valores customizados
+    // Decide quem entra na conta, ele convida os moradores
     return this.toResponse(conta);
   }
 
@@ -57,46 +57,39 @@ export class ContaService implements IContaService {
     usuarioLogadoId: string,
   ) {
     const conta = await this.contaRepository.buscarPorId(contaId);
-
     if (!conta) {
       throw new NotFoundException('Conta não encontrada');
     }
-
     const admin = await this.moradorRepository.buscarPorUsuarioERepublica(
       usuarioLogadoId,
       conta.republicaId,
     );
-
     if (!admin || admin.role !== Role.ADMIN) {
       throw new ForbiddenException('Apenas ADMIN pode alterar conta');
     }
-
     const atualizada = await this.contaRepository.atualizarStatus(
       contaId,
       data.status,
     );
-
     return this.toResponse(atualizada);
   }
 
   async remover(contaId: string, usuarioLogadoId: string) {
     const conta = await this.contaRepository.buscarPorId(contaId);
-
     if (!conta) {
       throw new NotFoundException('Conta não encontrada');
     }
-
     const admin = await this.moradorRepository.buscarPorUsuarioERepublica(
       usuarioLogadoId,
       conta.republicaId,
     );
-
     if (!admin || admin.role !== Role.ADMIN) {
       throw new ForbiddenException('Apenas ADMIN pode remover conta');
     }
-
     await this.contaRepository.remover(contaId);
   }
+
+  // Criar Patch update para atualizar conta e somente o admin da conta pode atualizar
 
   private toResponse(conta: any): ContaResponseDto {
     return {
