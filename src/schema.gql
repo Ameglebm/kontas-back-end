@@ -1,0 +1,73 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AtualizarContaInput {
+  """Status da conta"""
+  status: StatusConta
+}
+
+type ContaType {
+  """21/12/2020"""
+  atualizadoEm: DateTime!
+
+  """20/12/2020"""
+  criadoEm: DateTime!
+
+  """Descrição da conta"""
+  descricao: String!
+
+  """uuid-conta"""
+  id: String!
+
+  """uuid da republica"""
+  republicaId: String!
+
+  """PAGO"""
+  status: String!
+
+  """50"""
+  valor: Float!
+
+  """10/10/2010"""
+  vencimento: DateTime!
+}
+
+input CriarContaInput {
+  """Conta de luz"""
+  descricao: String!
+
+  """Id da republica"""
+  republicaId: String!
+
+  """Status da conta"""
+  status: StatusConta
+
+  """350,50"""
+  valor: Float!
+
+  """10/10/2015"""
+  vencimento: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  atualizarStatus(contaId: String!, data: AtualizarContaInput!): ContaType!
+  criarConta(data: CriarContaInput!): ContaType!
+  removerConta(contaId: String!): Boolean!
+}
+
+type Query {
+  contasPorRepublica(republicaId: String!): [ContaType!]!
+}
+
+"""Status da conta"""
+enum StatusConta {
+  ATRASADA
+  PAGA
+  PENDENTE
+}

@@ -3,7 +3,7 @@ import { StatusConta } from '@prisma/client';
 import { InputType, Field, Float } from '@nestjs/graphql'
 
 @InputType()
-export class CriarContaDtoInput {
+export class CriarContaInput {
 
   @Field({ description: 'Conta de luz'})
   @IsString({ message: 'Descrição tem que ser uma string'})

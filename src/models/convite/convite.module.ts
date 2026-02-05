@@ -7,8 +7,8 @@ import { MORADOR_REPOSITORY } from '../morador/morador.constants';
 import { MoradorRepository } from '../morador/repository/morador.repository'
 
 @Module({
-    controllers: [ConviteController],
     providers: [
+        ConviteController,
         {
             provide: CONVITE_SERVICE,
             useClass: ConviteService,

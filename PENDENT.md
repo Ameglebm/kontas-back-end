@@ -40,3 +40,10 @@ Model contas:
         perder validação
         perder segurança
         virar “backend fraco”
+    
+    Mas DataLoader é um assunto maior, porque envolve:
+    👉 criar classes loader
+    👉 evitar N+1 query problem
+    👉 integrar com Prisma
+
+    Nível backend senior

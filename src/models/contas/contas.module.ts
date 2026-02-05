@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ContaController } from './controllers/contas.controller';
+import { ContaResolver } from './controllers/contas.controller';
 import { ContaService } from './service/contas.service';
 import { ContaRepository } from './repository/contas.repository'
 import { 
@@ -8,10 +8,11 @@ import {
 } from './contas.constants'
 import { MORADOR_REPOSITORY } from '../morador/morador.constants';
 import { MoradorRepository } from '../morador/repository/morador.repository';
+import './graphql/enums/status.conta.enum';
 
 @Module({
-    controllers: [ContaController],
     providers: [
+        ContaResolver,
         {
             provide: CONTA_SERVICE,
             useClass: ContaService,

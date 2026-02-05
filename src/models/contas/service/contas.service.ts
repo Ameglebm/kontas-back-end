@@ -6,13 +6,14 @@ import {
 } from '@nestjs/common';
 import { ContaService as IContaService } from '../interface/contas.service.interface';
 import type { IContaRepository } from '../interface/contas.repository.interface'
-import { CriarContaDto } from '../graphql/inputs/create-conta.type';
-import { AtualizarContaDto } from '../graphql/inputs/update-conta.input';
-import { ContaResponseDto } from '../graphql/types/conta.input';
-import { Role, StatusConta } from '@prisma/client';
+import { CriarContaInput } from '../graphql/inputs/create-conta.type';
+import { AtualizarContaInput } from '../graphql/inputs/update-conta.input';
+import { ContaType } from '../graphql/types/conta.type';
+import { Conta, Role, StatusConta } from '@prisma/client';
 import { CONTA_REPOSITORY } from '../contas.constants';
 import { MORADOR_REPOSITORY } from 'src/models/morador/morador.constants';
 import { MoradorRepository } from 'src/models/morador/repository/morador.repository';
+import { ContaAdapter } from '../common/conta.common';
 
 @Injectable()
 export class ContaService implements IContaService {
@@ -24,7 +25,7 @@ export class ContaService implements IContaService {
     private readonly moradorRepository: MoradorRepository,
   ) { }
 
-  async criar(data: CriarContaDto, usuarioLogadoId: string) {
+  async criar(data: CriarContaInput, usuarioLogadoId: string) {
     const admin = await this.moradorRepository.buscarPorUsuarioERepublica(
       usuarioLogadoId,
       data.republicaId,
@@ -53,7 +54,7 @@ export class ContaService implements IContaService {
 
   async atualizarStatus(
     contaId: string,
-    data: AtualizarContaDto,
+    data: AtualizarContaInput,
     usuarioLogadoId: string,
   ) {
     const conta = await this.contaRepository.buscarPorId(contaId);
@@ -66,6 +67,9 @@ export class ContaService implements IContaService {
     );
     if (!admin || admin.role !== Role.ADMIN) {
       throw new ForbiddenException('Apenas ADMIN pode alterar conta');
+    }
+    if (!data.status) {
+      throw new ForbiddenException('Status é obrigatorio')
     }
     const atualizada = await this.contaRepository.atualizarStatus(
       contaId,
@@ -88,19 +92,8 @@ export class ContaService implements IContaService {
     }
     await this.contaRepository.remover(contaId);
   }
-
   // Criar Patch update para atualizar conta e somente o admin da conta pode atualizar
-
-  private toResponse(conta: any): ContaResponseDto {
-    return {
-      id: conta.id,
-      descricao: conta.descricao,
-      valor: Number(conta.valor),
-      vencimento: conta.vencimento,
-      status: conta.status,
-      republicaId: conta.republicaId,
-      criadoEm: conta.criadoEm,
-      atualizadoEm: conta.atualizadoEm,
-    };
+  private toResponse(conta: Conta): ContaType{
+    return ContaAdapter.toGraphQL(conta);
   }
 }
