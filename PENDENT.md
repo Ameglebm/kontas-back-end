@@ -23,4 +23,20 @@ Model contas:
         divisao da conta (personalizado ou igual)
         parcela da conta(mesma regra de adiconar as pessoas) ja entra nos meses e com os valores automaticamente, a pessoa pagou a conta e ela pode pagar as contas em qualquer momento
         republicaId: data.republicaId,
-        criadoPorId: admin.id, 
+        criadoPorId: admin.id,
+    O backend foi inicialmente desenvolvido em REST, seguindo uma arquitetura Data-Centric com serviços agnósticos de transporte, permitindo a evolução natural para GraphQL como camada de BFF, sem impacto nas regras de negócio.
+
+    “Implementei uma API GraphQL com NestJS utilizando schema-first, separação clara entre Input e Output, resolvers desacoplados do ORM e domínio orientado a dados (Data-Centric), permitindo que o frontend consuma apenas os dados necessários sem quebra de contrato.”
+
+⚠️ O que muda se você migrar
+    Você vai:
+        trocar Controllers → Resolvers
+        trocar DTO REST → InputType / ObjectType
+        manter Services e Repositories quase iguais
+        continuar usando Prisma igual
+
+    Você NÃO vai:
+        jogar código fora
+        perder validação
+        perder segurança
+        virar “backend fraco”

@@ -20,8 +20,8 @@ import type { Request } from 'express';
 import { AuthGuard } from '../../../middlewares/auth.guard';
 import { CONTA_SERVICE } from '../contas.constants';
 import type { ContaService } from '../interface/contas.service.interface';
-import { CriarContaDto } from '../dtos/contasDto';
-import { AtualizarContaDto } from '../dtos/contas-update.dto';
+import { CriarContaDto } from '../graphql/inputs/create-conta.type';
+import { AtualizarContaDto } from '../graphql/inputs/update-conta.input';
 
 interface AuthenticatedUser {
     id: string;

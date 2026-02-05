@@ -6,9 +6,9 @@ import {
 } from '@nestjs/common';
 import { ContaService as IContaService } from '../interface/contas.service.interface';
 import type { IContaRepository } from '../interface/contas.repository.interface'
-import { CriarContaDto } from '../dtos/contasDto';
-import { AtualizarContaDto } from '../dtos/contas-update.dto';
-import { ContaResponseDto } from '../dtos/contas-responde.dts';
+import { CriarContaDto } from '../graphql/inputs/create-conta.type';
+import { AtualizarContaDto } from '../graphql/inputs/update-conta.input';
+import { ContaResponseDto } from '../graphql/types/conta.input';
 import { Role, StatusConta } from '@prisma/client';
 import { CONTA_REPOSITORY } from '../contas.constants';
 import { MORADOR_REPOSITORY } from 'src/models/morador/morador.constants';

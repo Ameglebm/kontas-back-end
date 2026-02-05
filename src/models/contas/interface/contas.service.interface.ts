@@ -1,6 +1,6 @@
-import { CriarContaDto } from '../dtos/contasDto';
-import { AtualizarContaDto } from '../dtos/contas-update.dto';
-import { ContaResponseDto } from '../dtos/contas-responde.dts';
+import { CriarContaDto } from '../graphql/inputs/create-conta.type';
+import { AtualizarContaDto } from '../graphql/inputs/update-conta.input';
+import { ContaResponseDto } from '../graphql/types/conta.input';
 
 export interface ContaService {
   criar(
