@@ -1,17 +1,17 @@
-import { CriarContaDto } from '../dtos/contasDto';
-import { AtualizarContaDto } from '../dtos/contas-update.dto';
-import { ContaResponseDto } from '../dtos/contas-responde.dts';
+import { CriarContaInput } from '../graphql/inputs/create-conta.type';
+import { AtualizarContaInput } from '../graphql/inputs/update-conta.input';
+import { ContaType } from '../graphql/types/conta.type';
 
 export interface ContaService {
   criar(
-    data: CriarContaDto,
+    data: CriarContaInput,
     usuarioLogadoId: string,
-  ): Promise<ContaResponseDto>;
-  listarPorRepublica(republicaId: string): Promise<ContaResponseDto[]>;
+  ): Promise<ContaType>;
+  listarPorRepublica(republicaId: string): Promise<ContaType[]>;
   atualizarStatus(
     contaId: string,
-    data: AtualizarContaDto,
+    data: AtualizarContaInput,
     usuarioLogadoId: string,
-  ): Promise<ContaResponseDto>;
+  ): Promise<ContaType>;
   remover(contaId: string, usuarioLogadoId: string): Promise<void>;
 }

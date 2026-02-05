@@ -1,5 +1,4 @@
 import { Conta, StatusConta } from '@prisma/client';
-
 export interface IContaRepository {
   criar(data: {
     descricao: string;
