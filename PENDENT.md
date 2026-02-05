@@ -45,5 +45,6 @@ Model contas:
     👉 criar classes loader
     👉 evitar N+1 query problem
     👉 integrar com Prisma
-
     Nível backend senior
+
+    Clean Architecture aplicada a GraphQL / Modular GraphQL Architecture

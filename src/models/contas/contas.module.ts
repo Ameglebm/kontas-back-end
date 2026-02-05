@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ContaResolver } from './controllers/contas.controller';
+import { ContaResolver } from './resolvers/contas.resolvers';
 import { ContaService } from './service/contas.service';
 import { ContaRepository } from './repository/contas.repository'
 import { 
