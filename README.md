@@ -5,75 +5,148 @@
 O **Kontas** é um sistema de **gestão financeira compartilhada para repúblicas**, criado para organizar despesas, dividir contas e acompanhar pagamentos de forma simples e transparente entre moradores.
 
 A aplicação permite que os usuários:
-
 - 🏠 Criem ou entrem em uma república
 - 👥 Convidem moradores
 - 💰 Cadastrem contas e despesas compartilhadas
 - ➗ Dividam valores automaticamente
 - ✅ Acompanhem quem já pagou e quem ainda está pendente
 
-O backend foi desenvolvido com **NestJS**, **Prisma ORM** e **PostgreSQL**, utilizando uma abordagem **Data-Centric** para garantir integridade, consistência e segurança dos dados.
+Backend de Alta Performance e Evolução Contínua  
+**NestJS • Prisma • PostgreSQL • MVC → GraphQL • Clean Architecture • Data-Centric Design**
+
+O backend do **Kontas** vem passando por uma evolução arquitetural significativa, sempre guiada por três objetivos centrais:
+
+- ✨ Melhorar performance  
+- 🔗 Desacoplar frontend e backend  
+- ⚡ Reduzir retrabalho e acelerar o desenvolvimento  
+
+Começamos com **API REST + MVC**, evoluímos para **GraphQL**, e hoje o sistema segue um modelo **Clean / Layered** totalmente alinhado com boas práticas modernas.
+
+A transição não foi apenas técnica — foi **estratégica**. O foco é entregar um backend mais leve, eficiente, testável, escalável e que permita ao frontend trabalhar com total autonomia.
 
 ---
 
-## 📃 Sobre o Projeto
+# 🌐 Panorama Geral da Arquitetura
 
-O Kontas foi pensado para resolver o controle financeiro em ambientes compartilhados, como repúblicas, de forma simples, segura e organizada.
-
-Fluxo de uso principal:
-
-1. O usuário cria uma conta e faz login
-2. Cria ou entra em uma república
-3. Recebe ou envia convites
-4. Gerencia contas e despesas compartilhadas
-5. Acompanham-se responsabilidades e pagamentos
+| Camada / Tecnologia | Papel no Sistema |
+|---------------------|------------------|
+| **NestJS** | Estrutura modular, padronizada e escalável |
+| **Prisma ORM** | Fonte da verdade do banco (**Data-Centric**) |
+| **PostgreSQL** | Armazenamento relacional consistente |
+| **GraphQL** | Contrato tipado, flexível e sem overfetch/underfetch |
+| **Clean Architecture** | Isolamento de regras, testabilidade e independência |
+| **MVC (inicial)** | Organização simples e direta para o estágio inicial |
+| **JWT** | Autenticação segura |
+| **class-validator** | Validação robusta |
+| **Docker (futuro)** | Containerização |
+| **Railway / Render** | Deploy |
 
 ---
 
-## 🧭 Fluxo geral do sistema
+# 🔄 Por que migramos de REST → GraphQL?
 
-O diagrama abaixo representa o fluxo principal do **Kontas**, desde a autenticação do usuário até o gerenciamento das contas compartilhadas, seguindo a arquitetura **Data-Centric**.
+A decisão foi cuidadosamente analisada e baseada em desafios reais:
 
-```mermaid
-flowchart LR
-    U[👤 Usuário]
-    A[🔐 Auth<br/>JWT]
-    R[🏠 República]
-    M[👥 Moradores]
-    V[✉️ Convites]
-    C[💰 Contas]
-    CM[🔗 ContaMorador]
-    D[(🗄️ PostgreSQL)]
+---
 
-    %% Fluxo principal
-    U --> A --> R
+## 🟧 1. Reduzir o Número de Requisições
 
-    %% Fluxo humano
-    R --> M --> V
+No REST, telas complexas exigiam várias chamadas encadeadas.
 
-    %% Fluxo financeiro
-    R --> C --> CM
+GraphQL resolve isso com:
 
-    %% Persistência
-    M --> D
-    V --> D
-    C --> D
-    CM --> D
-    R --> D
+- Uma única query entregando todo o pacote de dados  
+- Menos tráfego  
+- Menos latência  
+- App mais rápido  
 
-    %% Data-centric
-    D --- DC[🧠 Data-Centric<br/>Banco = Verdade]
+---
 
-    %% Regras de papel
-    M --- ADM[🟢 ADMIN<br/>Acesso total]
-    M --- USR[🔵 USER<br/>Permissões limitadas]
+## 🟦 2. Evitar Overfetch & Underfetch
 
-    %% Cores dos fluxos
-    linkStyle 0,1 stroke:#6C63FF,stroke-width:2px   %% Auth
-    linkStyle 2,3 stroke:#2ECC71,stroke-width:2px   %% Humano
-    linkStyle 4,5 stroke:#F39C12,stroke-width:2px   %% Financeiro
-    linkStyle 6,7,8,9,10 stroke:#95A5A6,stroke-width:1.5px %% DB
-```
+No REST:  
+- **Overfetch** → Envia mais dados que o necessário  
+- **Underfetch** → Envia menos e exige novas requisições  
+
+No GraphQL:  
+✔ O frontend pede **exatamente** o que precisa  
+✔ Nenhum campo a mais ou a menos  
+✔ Contrato limpo e eficiente  
+
+---
+
+## 🟩 3. Desacoplar Frontend e Backend
+
+Antes:  
+- Frontend dependia de mudanças no backend  
+- Ajustes simples exigiam novos endpoints  
+- Muito alinhamento e retrabalho  
+
+Depois:  
+✔ Contrato estável  
+✔ Frontend evolui sem bloquear backend  
+✔ Menos reuniões, mais produtividade  
+
+---
+
+## 🟪 4. Menos Endpoints, Menos Testes, Mais Tempo
+
+Com o REST:  
+- Explosão de rotas  
+- Testes complexos  
+- Respostas quebravam telas  
+- QA lento  
+
+Com GraphQL:  
+✔ Contrato único  
+✔ Estruturas tipadas e auto-documentadas  
+✔ Testes mais simples  
+✔ Backend mais leve  
+
+---
+
+## 🟨 5. Melhor Performance e Manutenção Simplificada
+
+Benefícios atuais:
+
+- Menos chamadas ao servidor  
+- Respostas menores  
+- Menos tráfego  
+- Regras de negócio centralizadas  
+- Services independentes e testáveis  
+- Repositórios isolados  
+
+---
+
+## 🧩 Futuro Garantido
+
+- Ideal para crescimento  
+- Manutenção facilitada  
+- Módulos evoluem sem quebrar outros  
+
+---
+
+## ⚙️ Código Padronizado
+
+- Camadas claras  
+- Patterns consistentes  
+- Regras isoladas  
+
+---
+
+## 📈 Escalabilidade
+
+- Pronto para novos módulos  
+- Contrato sólido entre equipes  
+
+---
+
+## 🔍 Transparência e Documentação Viva
+
+- O schema GraphQL **é** a documentação  
+- Sem necessidade de Swagger manual  
+
+---
 
 ## 🧠 Arquitetura
 
@@ -142,27 +215,43 @@ O projeto segue separação clara de responsabilidades:
 │   ├── models/                  # Domínios da aplicação
 │   │   ├── auth/                # Autenticação e emissão de token
 │   │   ├── usuario/             # Usuário e perfil
-│   │   ├── republicas/          # Repúblicas
+│   │   ├── republicas/          # Repúblicas | Antes com MVC, Api Rest
+│   │   │   ├─ controllers/
+│   │   │   │  └─ republicas.controller.ts   # Rotas HTTP
+│   │   │   ├─ service/
+│   │   │   │  └─ republicas.service.ts      # Regras de negócio
+│   │   │   ├─ repository/
+│   │   │   │  └─ republicas.repository.ts   # Acesso a dados (Prisma)
+│   │   │   ├─ dtos/
+│   │   │   │  ├─ create-republica.dto.ts
+│   │   │   │  └─ update-republica.dto.ts
+│   │   │   ├─ interface/ #
+│   │   │   │  └─ republicas.repository.interface.ts
+│   │   │   ├─ republicas.constants.ts
+│   │   │   └─ republicas.module.ts
 │   │   ├── morador/             # Relação usuário ↔ república
 │   │   ├── convite/             # Convites para república
 │   │   ├── contaMorador/        # Relação contas ↔ moradores
-│   │   └── contas/              # Contas e despesas compartilhadas
-│   │       ├── controllers/     # Camada HTTP
-│   │       │   └── contas.controller.ts
-│   │       ├── dtos/            # DTOs de entrada e saída
-│   │       │   ├── contas.dto.ts
-│   │       │   ├── contas-update.dto.ts
-│   │       │   └── contas-response.dto.ts
-│   │       ├── interface/       # Contratos
-│   │       │   ├── contas.repository.interface.ts
-│   │       │   └── contas.service.interface.ts
-│   │       ├── repository/      # Acesso a dados (Prisma)
-│   │       │   └── contas.repository.ts
-│   │       ├── service/         # Regras de negócio
-│   │       │   └── contas.service.ts
-│   │       ├── types/           # Tipos do domínio
-│   │       ├── contas.constants.ts # Tokens e constantes do módulo
-│   │       └── contas.module.ts # Configuração do módulo
+│   │   └── contas/              # Contas e despesas compartilhadas | Agora com Layered / Clean Architecture e Api graphQL
+│   │   │  ├─ resolvers/
+│   │   │  │  └─ contas.resolver.ts
+│   │   │  ├─ service/
+│   │   │  │  └─ contas.service.ts
+│   │   │  ├─ repository/
+│   │   │  │  └─ contas.repository.ts
+│   │   │  ├─ common/
+│   │   │  │  └─ conta.common.ts
+│   │   │  ├─ graphql/
+│   │   │  │  ├─ enums/
+│   │   │  │  │  └─ status.conta.enum.ts
+│   │   │  │  ├─ inputs/
+│   │   │  │  │  ├─ create-conta.input.ts
+│   │   │  │  │  └─ update-conta.input.ts
+│   │   │  │  └─ types/
+│   │   │  │     └─ conta.type.ts
+│   │   │  ├─ contas.constants.ts
+│   │   │  ├─ contas.module.ts
+│   │   │  └─ README.md
 │   │
 │   ├── app.module.ts            # Módulo raiz da aplicação
 │   └── main.ts                  # Bootstrap do NestJS
